@@ -1,0 +1,20 @@
+{
+  "name": "timeline-calculator",
+  "productName": "Timeline Calculator",
+  "version": "1.0.0",
+  "description": "Timeline Calculator",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ben Leatherman",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "electron": "^30.0.9",
+    "electronmon": "^2.0.3",
+    "js-datepicker": "^5.18.2",
+    "sqlite3": "^5.1.7",
+    "toastify-js": "^1.12.0"
+  }
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self'"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="css/style.css"> -->
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <title>Time Calculator</title>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../fullcalendar/dist/index.global.min.js"></script>
+        <script src="js/renderer.js" async defer></script>
+        <script src="js/utils.js" async defer></script>
+        <script src="js/BookData.js" async defer></script>
+
+        <br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 sidebar">
+                    <div class="sidebar-title">
+                        <h2 class="">Books</h2>
+                    </div>
+                    <br>
+                    <div class="list-group ps-0" id="book-sidebar-menu">
+                        <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#new-book-modal">
+                            <h5 class="mb-1 text-primary">New Book</h5>
+                        </a>
+                        <!-- Example List Group -->
+                        <!-- <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#group1" aria-expanded="false">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Book 1</h5>
+                            </div>
+                            <div class="collapse" id="group1">
+                                <ul class="list-group list-group-flush rounded-2">
+                                    <li class="list-group-item d-flex flex-column">
+                                        <div>Author:</div>
+                                        <div>adsf</div>
+                                    </li>
+                                    <li class="list-group-item d-flex flex-column">
+                                        <div>Title:</div>
+                                        <div>Stanly  </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a> -->
+                        <!-- End Example List Group -->
+                    </div>
+                </div>
+                <!-- Calendar -->
+                <div class="col-10 content">
+                    <div class="me-2" id='calendar'></div>
+                </div>
+            </div>
+        </div>
+        <!-- New Book Modal -->
+        <div class="modal fade" id="new-book-modal" tabindex="-1" aria-labelledby="new-book-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="new-book-modal-title">New Book</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="new-book-form">
+                            <div class="mb-3">
+                                <label for="book-title" class="form-label">Book Title:</label>
+                                <input name="book-title" type="text" class="form-control" id="book-title" value="Bing" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="author-name" class="form-label">Author Name:</label>
+                                <input name="author-name" type="text" class="form-control" id="author-name" value="Chilling" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="word-count" class="form-label">Word Count:</label>
+                                <input name="word-count" type="number" class="form-control" id="word-count" value="10000" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phase">Editing Type:</label>
+                                <select class="select" name="phase" id="phase" required>
+                                    <option value="Developmental Editing">Developmental Editing</option>
+                                    <option value="Copy Editing">Copy Editing</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-between">
+                                <label for="start-date">Start Date:</label>
+                                <input type="date" id="start-date" name="start-date" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+                                
+                                <label for="end-date">End Date:</label>
+                                <input type="date" id="end-date" name="end-date" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+                            </div>
+                            <div class="mb-3 d-flex">
+                                <label for="color-picker" class="form-label">Color picker:   </label>
+                                <br>
+                                <input type="color" class="form-control form-control-color" name="event-color" id="color-picker" value="#563d7c" title="Choose Book Color">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="new-book-submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Edit Book Modal -->
+        <div class="modal fade" id="edit-book-modal" tabindex="-1" aria-labelledby="edit-book-modal" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="edit-book-modal-title">Edit Book</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form id="edit-book-form">
+                    <div class="mb-3">
+                    <label for="edit-book-title" class="form-label">Book Title:</label>
+                    <input name="book-title" type="text" class="form-control" id="edit-book-title" required>
+                    </div>
+                    <div class="mb-3">
+                    <label for="edit-author-name" class="form-label">Author Name:</label>
+                    <input name="author-name" type="text" class="form-control" id="edit-author-name" required>
+                    </div>
+                    <div class="mb-3">
+                    <label for="edit-word-count" class="form-label">Word Count:</label>
+                    <input name="word-count" type="number" class="form-control" id="edit-word-count" required>
+                    </div>
+                    <div class="mb-3">
+                    <label for="edit-current-progress" class="form-label">Current Progress:</label>
+                    <input name="current-progress" type="number" class="form-control" id="edit-current-progress" required>
+                    </div>
+                    <div class="mb-3">
+                    <label for="edit-phase">Editing Type:</label>
+                    <select class="select" name="phase" id="edit-phase" required>
+                        <option value="Developmental Editing">Developmental Editing</option>
+                        <option value="Copy Editing">Copy Editing</option>
+                    </select>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-between">
+                    <label for="edit-start-date">Start Date:</label>
+                    <input type="date" id="edit-start-date" name="start-date" required />
+                    
+                    <label for="edit-end-date">End Date:</label>
+                    <input type="date" id="edit-end-date" name="end-date" required />
+                    </div>
+                    <div class="mb-3 d-flex">
+                    <label for="edit-color-picker" class="form-label">Color picker:  </label>
+                    <br>
+                    <input type="color" class="form-control form-control-color" name="event-color" id="edit-color-picker" title="Choose Book Color">
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button-group w-100 d-flex justify-content-between">
+                            <button type="button" class="btn btn-danger" id="delete-book">Delete</button>
+                            <div class="safe-buttons d-flex w-50 me-0 justify-content-around">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="edit-book-submit">Save changes</button>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </body>
+</html>

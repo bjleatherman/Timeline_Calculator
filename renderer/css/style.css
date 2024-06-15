@@ -1,0 +1,44 @@
+:root {
+    --main-bg-color: #f7efec;
+    --fc-bg-color: #FAE8E0;
+    --fc-brd-color:#4a4644;
+    --fc-day-num-color: black;
+}
+
+body {
+    /* background-color: #FAE8E0; */
+    background-color: var(--main-bg-color) !important;
+    /* color: white !important;  */
+}
+
+#calendar{
+    background-color: var(--fc-bg-color) !important;
+    padding: 10px;
+    border-radius: .75%;
+    border: 3px solid #e7ddd9;
+}
+.fc-daygrid-day {
+    border: 1px solid var(--fc-brd-color) !important;
+}
+
+/* border around the actual events */
+/* .fc-event {
+    border: 2px solid #ff0000 !important;
+} */
+
+/* Control Buttons */
+/* .fc-toolbar {
+    border: 2px solid #0000ff;
+} */
+
+.fc-view-harness {
+    border: 1px solid var(--fc-brd-color) !important;
+}
+
+.fc-col-header-cell {
+    border: 1px solid var(--fc-brd-color) !important;
+}
+
+a.fc-daygrid-number {
+    color: var(--fc-day-num-color) !important;
+}

@@ -1,0 +1,138 @@
+{
+  "blackoutDates": [
+    "2024-06-13"
+  ],
+  "books": [
+    {
+      "bookId": 2,
+      "title": "Come and get your love",
+      "author": "The longest Name That ive ever seen",
+      "startDate": "2024-06-01",
+      "endDate": "2024-06-10",
+      "wordCount": "100000000",
+      "phase": "Copy Editing",
+      "blackoutDates": [],
+      "currentProgress": 0,
+      "color": "#3d7b77"
+    },
+    {
+      "bookId": 3,
+      "title": "aardvark",
+      "author": "bingo",
+      "startDate": "2024-05-26",
+      "endDate": "2024-05-30",
+      "wordCount": "9000",
+      "phase": "Developmental Editing",
+      "blackoutDates": [],
+      "currentProgress": 0,
+      "color": "#e2b436"
+    }
+  ],
+  "events": [
+    {
+      "groupId": 2,
+      "title": "14,285,714: Come and get your love",
+      "start": "2024-06-01",
+      "word goal": "14,285,714",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "28,571,428: Come and get your love",
+      "start": "2024-06-02",
+      "word goal": "14,285,714",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "35,714,285: Come and get your love",
+      "start": "2024-06-03",
+      "word goal": "7,142,857",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "42,857,142: Come and get your love",
+      "start": "2024-06-04",
+      "word goal": "7,142,857",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "49,999,999: Come and get your love",
+      "start": "2024-06-05",
+      "word goal": "7,142,857",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "57,142,856: Come and get your love",
+      "start": "2024-06-06",
+      "word goal": "7,142,857",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "64,285,713: Come and get your love",
+      "start": "2024-06-07",
+      "word goal": "7,142,857",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "78,571,427: Come and get your love",
+      "start": "2024-06-08",
+      "word goal": "14,285,714",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "92,857,141: Come and get your love",
+      "start": "2024-06-09",
+      "word goal": "14,285,714",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 2,
+      "title": "99,999,998: Come and get your love",
+      "start": "2024-06-10",
+      "word goal": "7,142,857",
+      "color": "#3d7b77"
+    },
+    {
+      "groupId": 3,
+      "title": "3,000: aardvark",
+      "start": "2024-05-26",
+      "word goal": "3,000",
+      "color": "#e2b436"
+    },
+    {
+      "groupId": 3,
+      "title": "4,500: aardvark",
+      "start": "2024-05-27",
+      "word goal": "1,500",
+      "color": "#e2b436"
+    },
+    {
+      "groupId": 3,
+      "title": "6,000: aardvark",
+      "start": "2024-05-28",
+      "word goal": "1,500",
+      "color": "#e2b436"
+    },
+    {
+      "groupId": 3,
+      "title": "7,500: aardvark",
+      "start": "2024-05-29",
+      "word goal": "1,500",
+      "color": "#e2b436"
+    },
+    {
+      "groupId": 3,
+      "title": "9,000: aardvark",
+      "start": "2024-05-30",
+      "word goal": "1,500",
+      "color": "#e2b436"
+    }
+  ]
+}
