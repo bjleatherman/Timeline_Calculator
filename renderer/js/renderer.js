@@ -11,13 +11,13 @@ const maxDate = getDateYearOffset(1);
 // console.log(`minDate: ${minDate}\nmaxDate: ${maxDate}`);
 
 window.onload = (event) => {
-  ipcRenderer.send('getEventsFilePath', {});
-  setFormDates();
+  ipcRenderer.send('getEventsFilePath', {}); // Loads the event files into the view...for some reason
+  setFormDates(); // Set the form dates to the current date
 };
 
-// Get the file location of the events.json file
+// Receive the file location of the events.json file...eventually a consequence of window.onLoad
 ipcRenderer.on('eventsFilePath', (filePath) => {
-  calEventsFilePath = filePath;
+  calEventsFilePath = filePath; // Global variable to store the file path
   // console.log(`received from main ${filePath}`);
   loadEvents(filePath, initializeCalendar);
 });
