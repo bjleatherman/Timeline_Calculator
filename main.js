@@ -96,16 +96,18 @@ ipcMain.on('add-book', (e, bookObj) => {
     // console.log(`------events here------`);
     // console.log(bookObj.calEvents)
 
-    let rawEvents = fs.readFileSync(EVENTS_FILEPATH);
-    let jsonData = JSON.parse(rawEvents);
+    // let rawEvents = fs.readFileSync(EVENTS_FILEPATH);
+    // let jsonData = JSON.parse(rawEvents);
 
-    jsonData.books.push(bookObj.data);
+    // jsonData.books.push(bookObj.data);
 
-    bookObj.calEvents.forEach(event => {
-        jsonData.events.push(event);
-    });
-    let updatedJsonString = JSON.stringify(jsonData, null,2);
-    fs.writeFileSync(EVENTS_FILEPATH, updatedJsonString);
+    // bookObj.calEvents.forEach(event => {
+    //     jsonData.events.push(event);
+    // });
+    // let updatedJsonString = JSON.stringify(jsonData, null,2);
+    // fs.writeFileSync(EVENTS_FILEPATH, updatedJsonString);
+
+    state.addBook(bookObj.data);
 });
 
 ipcMain.on('delete-book', (e, bookId) => {
