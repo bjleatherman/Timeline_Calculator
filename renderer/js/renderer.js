@@ -67,13 +67,13 @@ function getEstEndDate() {
 }
 
 function setFormDates() {
-  document.getElementById('start-date').value = todaysDate;
-  document.getElementById('start-date').min = minDate;
-  document.getElementById('start-date').max = maxDate;
+  document.getElementById('receiveDate').value = todaysDate;
+  document.getElementById('receiveDate').min = minDate;
+  document.getElementById('receiveDate').max = maxDate;
 
-  document.getElementById('end-date').value = estEndDate;
-  document.getElementById('end-date').min = minDate;
-  document.getElementById('end-date').max = maxDate;
+  document.getElementById('dueDate').value = estEndDate;
+  document.getElementById('dueDate').min = minDate;
+  document.getElementById('dueDate').max = maxDate;
 }
 
 function alertSuccess(message){
