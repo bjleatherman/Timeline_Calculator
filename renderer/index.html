@@ -74,37 +74,57 @@
                     </div>
                     <div class="modal-body">
                         <form id="new-book-form">
+                            <!-- Title and Author -->
                             <div class="mb-3">
-                                <label for="book-title" class="form-label">Book Title:</label>
-                                <input name="book-title" type="text" class="form-control" id="book-title" value="Bing" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="author-name" class="form-label">Author Name:</label>
-                                <input name="author-name" type="text" class="form-control" id="author-name" value="Chilling" required>
+                                <label for="title" class="form-label">Book Title:</label>
+                                <input name="title" type="text" class="form-control" id="title" value="Bing" required>
                             </div>
                             <div class="mb-3">
-                                <label for="word-count" class="form-label">Word Count:</label>
-                                <input name="word-count" type="number" class="form-control" id="word-count" value="10000" required>
+                                <label for="author" class="form-label">Author Name:</label>
+                                <input name="author" type="text" class="form-control" id="author" value="Chilling" required>
                             </div>
+                            <!-- Word Count and Page Count -->
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="words" class="form-label">Word Count:</label>
+                                    <input name="words" type="number" class="form-control" id="words" value="100000" required>
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="pages" class="form-label">Page Count:</label>
+                                    <input name="pages" type="number" class="form-control" id="pages" value="365" required>
+                                </div>
+                            </div>
+                            <!-- Editing Type and Letter Hours -->
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="type" class="form-label">Editing Type:</label>
+                                    <select class="form-select" name="type" id="type" required>
+                                        <option value="Developmental Editing">Developmental Editing</option>
+                                        <option value="Copy Editing">Copy Editing</option>
+                                    </select>
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="letterDayFloat" class="form-label">Letter Hours:</label>
+                                    <input name="letterDayFloat" type="number" class="form-control" id="letterDayFloat" value="3" required>
+                                </div>
+                            </div>
+                            <!-- Dates -->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="receiveDate">Start Date:</label>
+                                    <input type="date" id="receiveDate" name="receiveDate" class="form-control" value="2018-07-22" min="2018-01-01" max="2058-12-31">
+                                </div>
+                                <div class="col">
+                                    <label for="dueDate">End Date:</label>
+                                    <input type="date" id="dueDate" name="dueDate" class="form-control" value="2018-07-22" min="2018-01-01" max="2058-12-31">
+                                </div>
+                            </div>
+                            <!-- Color Picker -->
                             <div class="mb-3">
-                                <label for="phase">Editing Type:</label>
-                                <select class="select" name="phase" id="phase" required>
-                                    <option value="Developmental Editing">Developmental Editing</option>
-                                    <option value="Copy Editing">Copy Editing</option>
-                                </select>
+                                <label for="color-picker" class="form-label">Color Picker:</label>
+                                <input type="color" class="form-control form-control-color" name="color" id="color-picker" value="#563d7c" title="Choose Book Color">
                             </div>
-                            <div class="mb-3 d-flex justify-content-between">
-                                <label for="start-date">Start Date:</label>
-                                <input type="date" id="start-date" name="start-date" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
-                                
-                                <label for="end-date">End Date:</label>
-                                <input type="date" id="end-date" name="end-date" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
-                            </div>
-                            <div class="mb-3 d-flex">
-                                <label for="color-picker" class="form-label">Color picker:   </label>
-                                <br>
-                                <input type="color" class="form-control form-control-color" name="event-color" id="color-picker" value="#563d7c" title="Choose Book Color">
-                            </div>
+                            <!-- Form Buttons -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" id="new-book-submit">Submit</button>
