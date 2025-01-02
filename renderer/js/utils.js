@@ -51,29 +51,11 @@ function editBookModal(book) {
     editModal.show()
 }
 
-editBookForm.addEventListener('submit', function(event) {
-    // prevents refreshing page
-    event.preventDefault();
 
-    console.log(`submitted edit to nothing`);
-    
-    if (!editBookForm.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-        alert("Please fill out all required fields.");
-    }
-    var formData = new FormData(editBookForm);
-    var formObj = {};
-    formData.forEach((value,key) =>{
-        formObj[key] = value;
-    });
-
-    // Close and reset Modal
-    editBookForm.reset();
-    var modal = bootstrap.Modal.getInstance(document.getElementById('edit-book-modal'));
-    modal.hide();
-});
-
+/////////////////////////////////////
+//   Handle book form submission   //
+/////////////////////////////////////
+//*New Book*//
 newBookForm.addEventListener('submit', function(event) {
     // prevents refreshing page
     event.preventDefault();
@@ -96,8 +78,33 @@ newBookForm.addEventListener('submit', function(event) {
     setFormDates();
 
     // Handle new book input
-    book = new BookData(formObj);
+    book = new Book(formObj);
     addNewBookToCalendar(book);
+});
+
+//*Edit Book*//
+// TODO: Implement edit book form submission 
+editBookForm.addEventListener('submit', function(event) {
+    // prevents refreshing page
+    event.preventDefault();
+
+    console.log(`submitted edit to nothing`);
+    
+    if (!editBookForm.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Please fill out all required fields.");
+    }
+    var formData = new FormData(editBookForm);
+    var formObj = {};
+    formData.forEach((value,key) =>{
+        formObj[key] = value;
+    });
+
+    // Close and reset Modal
+    editBookForm.reset();
+    var modal = bootstrap.Modal.getInstance(document.getElementById('edit-book-modal'));
+    modal.hide();
 });
 
 function getBookFromId(id){
