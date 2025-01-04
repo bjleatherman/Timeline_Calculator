@@ -31,7 +31,7 @@ editDeleteBtn.addEventListener('click', function() {
         var modal = bootstrap.Modal.getInstance(document.getElementById('edit-book-modal'));
         modal.hide();
 
-        handleDeleteBook(bookId);
+        deleteBook(bookId);
     }
 });
 
@@ -80,7 +80,7 @@ newBookForm.addEventListener('submit', function(event) {
 
     // Handle new book input
     book = new LocalBook(formObj);
-    addNewBookToCalendar(book);
+    createBook(book);
 });
 
 //*Edit Book*//
