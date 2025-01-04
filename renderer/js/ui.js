@@ -178,7 +178,7 @@ function setFormDates() {
 // Called from .edit-btn event listener - recieves book object from bookId bound to .edit-btn
 function editBookModal(book) {
     const editModal = new bootstrap.Modal(document.getElementById('edit-book-modal'))
-    editBookForm.setAttribute('value', book.bookId);
+    editBookForm.setAttribute('value', book.groupId);
     document.getElementById('edit-title').value = book.title;
     document.getElementById('edit-author').value = book.author;
     document.getElementById('edit-words').value = book.words;
