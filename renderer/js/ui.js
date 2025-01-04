@@ -6,6 +6,32 @@ editDeleteBtn = document.getElementById('delete-book');
 
 let editBtns = '';
 
+////////////////////
+//   UI Updates   //
+////////////////////
+
+//*********//
+// Alerts  //
+//*********//
+
+// Alert user of Success
+function alertSuccess(message){
+    Toastify.toast({
+      text: message,
+      duration: 500,
+      close: false,
+      style:{
+        background: 'green',
+        color: 'white',
+        textAlign: 'center'
+      }
+    });
+  }
+
+//**********//
+// Nav Bars //
+//**********//
+
 // Populate book group window
 function buildNavBar() {
 
