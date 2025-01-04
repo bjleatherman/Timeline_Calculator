@@ -18,7 +18,7 @@ function getBookFromId(id){
     });
 
     if (foundBook === '') {
-        console.error(`No book found for bookId ${id}`);
+        console.error(`No book found for groupId ${id}`);
         return '';
     }
 
