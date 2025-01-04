@@ -6,3 +6,6 @@
 
 # Depreciated folder
 **/Deprecated/
+
+# Data Storage
+**/renderer/events/data.json
