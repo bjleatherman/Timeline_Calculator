@@ -36,6 +36,12 @@ function getBookFromId(id){
             foundBook = book
         }
     });
+
+    if (foundBook === '') {
+        console.error(`No book found for bookId ${id}`);
+        return '';
+    }
+
     return foundBook;
 }
 
