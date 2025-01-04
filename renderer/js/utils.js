@@ -12,7 +12,7 @@
 function getBookFromId(id){
     let foundBook = ''
     calEvents.books.forEach((book) => {
-        if (book.bookId == id) {
+        if (book.groupId == id) {
             foundBook = book
         }
     });
