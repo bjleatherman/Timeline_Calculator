@@ -118,13 +118,11 @@ ipcMain.on('create-book', (e, book) => {
 
 // Update Books
 ipcMain.on('update-book', (e, book) => {
-    throw new Error("Not implemented");
     state.updateBook(book);
 });
 
 // Delete Books
 ipcMain.on('delete-book', (e, groupId) => {
-    throw new Error("Not implemented");
     state.deleteBook(groupId);
 });
 
@@ -139,7 +137,6 @@ ipcMain.on('update-event', (e, event) => {
 
 // Delete Event
 ipcMain.on('delete-event', (e, eventId) => {
-    throw new Error("Not implemented");
     state.deleteEvent(eventId);
 });
 

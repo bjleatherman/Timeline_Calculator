@@ -230,8 +230,7 @@ function updateEvent(event) {
 
 // Delete an event
 function deleteEvent(eventId) {
-  throw new Error('Not implemented');
-  // ipcRenderer.send('delete-event', eventId);
+  ipcRenderer.send('delete-event', eventId);
 }
 
 //****************//
