@@ -31,8 +31,7 @@ class State {
             const jsonData = JSON.parse(rawData);
     
             this.books = (jsonData.books || []).map(bookData => {
-                const bookParams = Object.values(bookData);
-                return new Book(...bookParams);
+                return new Book(bookData);
             });
     
             this.blackoutDates = (jsonData.blackoutDates || []).map(blackoutDateData => {
@@ -42,8 +41,7 @@ class State {
             });
     
             this.events = (jsonData.events || []).map(eventData => {
-                const eventParams = Object.values(eventData);
-                return new Event(...eventParams);
+                return new Event(eventData);
             });
     
                 this.nextGroupId = this.books.reduce((maxId, book) => Math.max(maxId, book.groupId || 0), 0) + 1;
@@ -80,9 +78,11 @@ class State {
 
     // Add new book
     addBook(book) {
-        const events = this.generateEventsForBook(book);
+        let newBook = new Book(book);
+        newBook.groupId = this.nextGroupId;
+        const events = this.generateEventsForBook(newBook);
         this.nextGroupId += 1;
-        this.books.push(book);
+        this.books.push(newBook);
         this.events.push(...events);
         this.saveState();
     }
