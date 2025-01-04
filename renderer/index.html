@@ -135,64 +135,74 @@
             </div>
         </div>
         <!-- Edit Book Modal -->
-        <div class="modal fade" id="edit-book-modal" tabindex="-1" aria-labelledby="edit-book-modal" aria-hidden="true">
+        <div class="modal fade" id="edit-book-modal" tabindex="-1" aria-labelledby="edit-book-modal-title" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="edit-book-modal-title">Edit Book</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <form id="edit-book-form">
-                    <div class="mb-3">
-                    <label for="edit-book-title" class="form-label">Book Title:</label>
-                    <input name="book-title" type="text" class="form-control" id="edit-book-title" required>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="edit-book-modal-title">Edit Book</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="mb-3">
-                    <label for="edit-author-name" class="form-label">Author Name:</label>
-                    <input name="author-name" type="text" class="form-control" id="edit-author-name" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="edit-word-count" class="form-label">Word Count:</label>
-                    <input name="word-count" type="number" class="form-control" id="edit-word-count" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="edit-current-progress" class="form-label">Current Progress:</label>
-                    <input name="current-progress" type="number" class="form-control" id="edit-current-progress" required>
-                    </div>
-                    <div class="mb-3">
-                    <label for="edit-phase">Editing Type:</label>
-                    <select class="select" name="phase" id="edit-phase" required>
-                        <option value="Developmental Editing">Developmental Editing</option>
-                        <option value="Copy Editing">Copy Editing</option>
-                    </select>
-                    </div>
-                    <div class="mb-3 d-flex justify-content-between">
-                    <label for="edit-start-date">Start Date:</label>
-                    <input type="date" id="edit-start-date" name="start-date" required />
-                    
-                    <label for="edit-end-date">End Date:</label>
-                    <input type="date" id="edit-end-date" name="end-date" required />
-                    </div>
-                    <div class="mb-3 d-flex">
-                    <label for="edit-color-picker" class="form-label">Color picker:  </label>
-                    <br>
-                    <input type="color" class="form-control form-control-color" name="event-color" id="edit-color-picker" title="Choose Book Color">
-                    </div>
-                    <div class="modal-footer">
-                        <div class="button-group w-100 d-flex justify-content-between">
-                            <button type="button" class="btn btn-danger" id="delete-book">Delete</button>
-                            <div class="safe-buttons d-flex w-50 me-0 justify-content-around">
+                    <div class="modal-body">
+                        <form id="edit-book-form">
+                            <!-- Title and Author -->
+                            <div class="mb-3">
+                                <label for="edit-title" class="form-label">Book Title:</label>
+                                <input name="title" type="text" class="form-control" id="edit-title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit-author" class="form-label">Author Name:</label>
+                                <input name="author" type="text" class="form-control" id="edit-author" required>
+                            </div>
+                            <!-- Word Count and Page Count -->
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="edit-words" class="form-label">Word Count:</label>
+                                    <input name="words" type="number" class="form-control" id="edit-words" required>
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="edit-pages" class="form-label">Page Count:</label>
+                                    <input name="pages" type="number" class="form-control" id="edit-pages" required>
+                                </div>
+                            </div>
+                            <!-- Editing Type and Letter Hours -->
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <label for="edit-type" class="form-label">Editing Type:</label>
+                                    <select class="form-select" name="type" id="edit-type" required>
+                                        <option value="Developmental Editing">Developmental Editing</option>
+                                        <option value="Copy Editing">Copy Editing</option>
+                                    </select>
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="edit-letterDayFloat" class="form-label">Letter Hours:</label>
+                                    <input name="letterDayFloat" type="number" class="form-control" id="edit-letterDayFloat" required>
+                                </div>
+                            </div>
+                            <!-- Dates -->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="edit-receiveDate">Start Date:</label>
+                                    <input type="date" id="edit-receiveDate" name="receiveDate" class="form-control" required>
+                                </div>
+                                <div class="col">
+                                    <label for="edit-dueDate">End Date:</label>
+                                    <input type="date" id="edit-dueDate" name="dueDate" class="form-control" required>
+                                </div>
+                            </div>
+                            <!-- Color Picker -->
+                            <div class="mb-3">
+                                <label for="edit-color-picker" class="form-label">Color Picker:</label>
+                                <input type="color" class="form-control form-control-color" name="color" id="edit-color-picker" title="Choose Book Color">
+                            </div>
+                            <!-- Form Buttons -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="delete-book">Delete</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" id="edit-book-submit">Save changes</button>
                             </div>
-                            
-                        </div>
-                        
+                        </form>
                     </div>
-                </form>
                 </div>
-            </div>
             </div>
         </div>
     </body>
