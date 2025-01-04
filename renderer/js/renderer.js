@@ -3,15 +3,19 @@
 let calEventsFilePath = '';
 let calEvents = '';
 let calendar;
-const todaysDate = getFormattedDate();
-const estEndDate = getEstEndDate();
-const minDate = getDateYearOffset(-1);
-const maxDate = getDateYearOffset(1);
+let todaysDate = '';
+let estEndDate = '';
+let minDate = ''; 
+let maxDate = ''; 
 const estEndDateOffset = 10;
 
 // Load the events file path and sets the dates for the forms on window load
 window.onload = (event) => {
   getEventsFilePathFromMain();
+  todaysDate = getFormattedDate();
+  estEndDate = getEstEndDate();
+  minDate = getDateYearOffset(-1);
+  maxDate = getDateYearOffset(1);
   setFormDates(); // Set the form dates to the current date
 };
 
