@@ -29,7 +29,7 @@ const eventManager = new EventManager();
 const blackoutDateManager = new BlackoutDateManager();
 
 const state = new State(bookManager, eventManager, blackoutDateManager, EVENTS_FILEPATH); // State loads itself now
-state.resetState(); // Reset the state for testing
+// state.resetState(); // Reset the state for testing
 
 // Register services
 ServiceLocator.register('bookManager', bookManager);
