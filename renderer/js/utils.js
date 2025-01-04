@@ -36,16 +36,17 @@ editDeleteBtn.addEventListener('click', function() {
 });
 
 function editBookModal(book) {
-
+ 
     const editModal = new bootstrap.Modal(document.getElementById('edit-book-modal'))
     editBookForm.setAttribute('value', book.bookId);
-    document.getElementById('edit-book-title').value = book.title;
-    document.getElementById('edit-author-name').value = book.author;
-    document.getElementById('edit-word-count').value = book.wordCount;
-    document.getElementById('edit-current-progress').value = book.currentProgress;
-    document.getElementById('edit-phase').value = book.phase;
-    document.getElementById('edit-start-date').value = book.startDate;
-    document.getElementById('edit-end-date').value = book.endDate;
+    document.getElementById('edit-title').value = book.title;
+    document.getElementById('edit-author').value = book.author;
+    document.getElementById('edit-words').value = book.words;
+    document.getElementById('edit-pages').value = book.pages;
+    document.getElementById('edit-type').value = book.type;
+    document.getElementById('edit-letterDayFloat').value = book.letterDayFloat;
+    document.getElementById('edit-receiveDate').value = book.receiveDate;
+    document.getElementById('edit-dueDate').value = book.dueDate;
     document.getElementById('edit-color-picker').value = book.color;
 
     editModal.show()
@@ -78,7 +79,7 @@ newBookForm.addEventListener('submit', function(event) {
     setFormDates();
 
     // Handle new book input
-    book = new Book(formObj);
+    book = new LocalBook(formObj);
     addNewBookToCalendar(book);
 });
 
@@ -120,18 +121,24 @@ function getBookFromId(id){
 // Populate book group window
 function buildNavBar() {
 
-    // console.log(`building navbar`);
-    // console.log(calEvents.books);
+    // Clear all <a> elements except the one with id "new-book-list-btn"
+    Array.from(sideBarDataView.children).forEach((child) => {
+        if (child.id !== 'new-book-list-btn') {
+            sideBarDataView.removeChild(child);
+        }
+    });
+
+    console.log(`building navbar`);
+    console.log(calEvents.books);
 
     calEvents.books.forEach((book) => {
 
         dataToDisplay = {
-            'Progress: ': `${formatNumbersWithComma(book.currentProgress)} Words`,
+            //'Progress: ': `${formatNumbersWithComma(book.currentProgress)} Words`,
             'Author: ': book.author,
-            'Start Date: ': formatDateToMDYY(book.startDate),
-            'End Date: ': formatDateToMDYY(book.endDate),
-            'Word Count: ': formatNumbersWithComma(book.wordCount),
-            'Phase: ': book.phase,
+            'Dates: ': `${formatDateToMDYY(book.receiveDate)}-${formatDateToMDYY(book.dueDate)}`,
+            'Word Count: ': formatNumbersWithComma(book.words),
+            'Editing Type: ': book.type,
             // 'Blackout Dates': book.blackoutDates,
             // Handle BlackoutDates Elsewhere
         };
@@ -139,7 +146,7 @@ function buildNavBar() {
         const textContrastColor =  getContrastColor(book.color)
 
         // id for bootstrap collapse group
-        const bookGroup = `book-group-${book.bookId}`;
+        const bookGroup = `book-group-${book.groupId}`;
         
         // list item that will go into #book-sidebar
         let parentA = document.createElement('a');
@@ -218,6 +225,9 @@ function buildNavBar() {
 }
 
 function formatNumbersWithComma(num){
+    if (num === undefined) {
+        return '';
+    }
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
