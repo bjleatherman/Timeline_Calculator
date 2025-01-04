@@ -98,8 +98,8 @@ function buildNavBar() {
 
         // div that collapses and holds the ul with book data
         let collapseDiv = document.createElement('div');
-        collapseDiv.className = 'collapse'
-        collapseDiv.id = bookGroup
+        collapseDiv.className = 'collapse my-3';
+        collapseDiv.id = bookGroup;
 
         // ul that holds the list of book attributes
         let childUl = document.createElement('ul');
@@ -110,7 +110,7 @@ function buildNavBar() {
         btnLi.className = 'list-group-item d-flex flex-column';
 
         let editBtn = document.createElement('button');
-        editBtn.className = 'btn btn-secondary edit-btn';
+        editBtn.className = 'btn btn-secondary edit-btn my-2';
         editBtn.textContent = 'Edit';
         editBtn.setAttribute('value', bookGroup)
 
