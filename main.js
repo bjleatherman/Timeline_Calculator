@@ -37,6 +37,9 @@ ServiceLocator.register('eventManager', eventManager);
 ServiceLocator.register('blackoutDateManager', blackoutDateManager);
 
 
+//////////////////////////////
+//     Window Management    //
+//////////////////////////////
 let mainWindow;
 
 function createMainWindow(){
@@ -81,63 +84,72 @@ app.on('window-all-closed', () => {
     }
 });
 
+///////////////////////////////////////
+//     Non State Data To Renderer    //
+///////////////////////////////////////
+
 // Tell the renderer where the events file is located
 ipcMain.on('getEventsFilePath', (e, data) => {
     mainWindow.webContents.send('eventsFilePath', path.join(EVENTS_FILEPATH))
 });
 
-/////////////////////
-// Update Data Rep //
-/////////////////////
-
-// Update Books
-ipcMain.on('add-book', (e, bookObj) => {
-    // console.log(`------data here------`);
-    // console.log(bookObj.data)
-    // console.log(`------events here------`);
-    // console.log(bookObj.calEvents)
-
-    // let rawEvents = fs.readFileSync(EVENTS_FILEPATH);
-    // let jsonData = JSON.parse(rawEvents);
-
-    // jsonData.books.push(bookObj.data);
-
-    // bookObj.calEvents.forEach(event => {
-    //     jsonData.events.push(event);
-    // });
-    // let updatedJsonString = JSON.stringify(jsonData, null,2);
-    // fs.writeFileSync(EVENTS_FILEPATH, updatedJsonString);
-    //console.log(bookObj);
-    state.addBook(bookObj);
-});
-
-ipcMain.on('delete-book', (e, bookId) => {
-    console.log(`deleting book id: ${bookId}`);
-
-    let rawEvents = fs.readFileSync(EVENTS_FILEPATH);
-    let jsonData = JSON.parse(rawEvents);
-
-    // Filter out the book with the specified bookId
-    jsonData.books = jsonData.books.filter(book => book.bookId*1 !== bookId*1);
-    console.log(`filtered books\n`);
-    console.log(jsonData.books);
-    
-    // Filter out events related to the specified bookId
-    jsonData.events = jsonData.events.filter(event => event.groupId*1 !== bookId*1);
-
-    // Save the updated data back to the file
-    let updatedJsonData = JSON.stringify(jsonData, null, 2)
-    // console.log(updatedJsonData);
-    fs.writeFileSync(EVENTS_FILEPATH, updatedJsonData);
-});
-
-
-/////////////////////////////////////////////////
 // Tell the renderer that the file was updated //
-/////////////////////////////////////////////////
-
 fs.watch(EVENTS_FILEPATH, (eventType, fileName) => {
     if(eventType === 'change') {
         mainWindow.webContents.send('events-updated', EVENTS_FILEPATH)
     }
+});
+
+////////////////////////////
+//     CRUD Operations    //
+////////////////////////////
+
+//*******//
+// Books //
+//*******//
+
+// Create Books
+ipcMain.on('create-book', (e, book) => {
+    state.addBook(book);
+});
+
+// Update Books
+ipcMain.on('update-book', (e, book) => {
+    throw new Error("Not implemented");
+    state.updateBook(book);
+});
+
+// Delete Books
+ipcMain.on('delete-book', (e, groupId) => {
+    throw new Error("Not implemented");
+    state.deleteBook(groupId);
+});
+
+//********//
+// Events //
+//********//
+
+// Update Event
+ipcMain.on('update-event', (e, event) => {
+    state.updateEvents(event);
+});
+
+// Delete Event
+ipcMain.on('delete-event', (e, eventId) => {
+    throw new Error("Not implemented");
+    state.deleteEvent(eventId);
+});
+
+//****************//
+// Blackout Dates //
+//****************//
+
+// Create a Blackout Date
+ipcMain.on('create-blackout-date', (e, blackoutDate) => {
+    state.addBlackoutDate(blackoutDate);
+});
+
+// Delete a Blackout Date
+ipcMain.on('delete-blackout-date', (e, blackoutDate) => {
+    state.removeBlackoutDate(blackoutDate);
 });
