@@ -68,6 +68,16 @@ class State {
         fs.writeFileSync(this.dataFilePath, JSON.stringify(jsonData, null,2), 'utf-8');
     }
 
+    // Resets the data storage to blank
+    resetState() {
+        this.books = [];
+        this.blackoutDates = [];
+        this.blackoutDatesSet = new Set();
+        this.events = [];
+        this.nextGroupId = 1;
+        this.saveState();
+    }
+
     getNextGroupId () {
         return this.nextGroupId;
     }
@@ -76,22 +86,58 @@ class State {
         return this.blackoutDates();
     }
 
+    ////////////////////////////
+    //     CRUD Operations    //
+    ////////////////////////////
+
+    //*******//
+    // Books //
+    //*******//
+
     // Add new book
     addBook(book) {
         let newBook = new Book(book);
         newBook.groupId = this.nextGroupId;
-        const events = this.generateEventsForBook(newBook);
+        const events = this.generateEventsForNewBook(newBook);
         this.nextGroupId += 1;
         this.books.push(newBook);
         this.events.push(...events);
         this.saveState();
     }
 
-    generateEventsForBook (book) {
-        const validDates = this.getValidDates(book);
-        return this.eventManager.generateEventsForNewBook(book, validDates)
+    // Update a book
+    updatebook(updatedBook) {
+        
+        throw new Error('Not implemented');
+
+        const book = this.books.find(book => book.groupId === updatedBook.groupId);
+        if (!book) {
+            console.error(`No book found for groupId ${updatedBook.groupId}`);
+        }
     }
 
+    // Delete a book
+    deleteBook(groupId) {
+        // Remove the book
+        const book = this.books.find(book => book.id === groupId);
+        if (book) {
+            this.books = this.books.filter(book => book.groupId !== groupId);
+        }
+        
+        // Remove the events
+        const events = this.events.filter(event => event.groupId === groupId);
+        if (events.length > 0) {
+            this.events = this.events.filter(event => event.groupId !== groupId);
+        }
+
+        this.saveState();
+    }
+
+    //********//
+    // Events //
+    //********//
+
+    // Update events from a specific event point
     updateEvents(updatedEvent, saveState=true, returnEvents=false) {
         console.log(updatedEvent);
         console.log(updatedEvent.groupId);
@@ -115,28 +161,20 @@ class State {
             return this.events;
         }
     }
-    
-    getValidDates(book) {
-        const { receiveDate, dueDate } = book
-        const incrementDate = (dateString) => {
-            const [year, month, day] = dateString.split('-').map(Number);
-            const date = new Date(year, month - 1, day + 1); // Increment by one day
-            return date.toISOString().split('T')[0]; // Convert back to YYYY-MM-DD
-        };
-    
-        const dates = [];
-        let current = receiveDate;
-    
-        while (current <= dueDate) {
-            if (!this.blackoutDatesSet.has(current)) {
-                dates.push(current); // Add the date if it’s not in blackout dates
-            }
-            current = incrementDate(current); // Increment to the next day
-        }
-    
-        return dates;
+
+    // Delete an event
+    deleteEvent(eventId) {
+        throw new Error('Not implemented');
+
+        // Would need to update the event calculations, this wont work
+        this.events = this.events.filter(event => event.id !== eventId);
+        this.saveState();
     }
-   
+
+    //****************//
+    // Blackout Dates //
+    //****************//
+
     // Add new blackout date
     addBlackoutDate(blackoutDate) {
         if (!this.blackoutDatesSet.has(blackoutDate.date)) {
@@ -166,15 +204,37 @@ class State {
             this.saveState();
         }
     }
+
+    /////////////////////////////
+    //     Helper Functions    //
+    /////////////////////////////
+
+    // Generates events for a new book
+    generateEventsForNewBook (book) {
+        const validDates = this.getValidDates(book);
+        return this.eventManager.generateEventsForNewBook(book, validDates)
+    }
+
+    // Returns the valid dates for a book
+    getValidDates(book) {
+        const { receiveDate, dueDate } = book
+        const incrementDate = (dateString) => {
+            const [year, month, day] = dateString.split('-').map(Number);
+            const date = new Date(year, month - 1, day + 1); // Increment by one day
+            return date.toISOString().split('T')[0]; // Convert back to YYYY-MM-DD
+        };
     
-    // Resets the data storage to blank
-    resetState() {
-        this.books = [];
-        this.blackoutDates = [];
-        this.blackoutDatesSet = new Set();
-        this.events = [];
-        this.nextGroupId = 1;
-        this.saveState();
+        const dates = [];
+        let current = receiveDate;
+    
+        while (current <= dueDate) {
+            if (!this.blackoutDatesSet.has(current)) {
+                dates.push(current); // Add the date if it’s not in blackout dates
+            }
+            current = incrementDate(current); // Increment to the next day
+        }
+    
+        return dates;
     }
 }
 

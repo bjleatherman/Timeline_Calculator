@@ -179,21 +179,13 @@ function updateCalendarEvents(todaysDate, newEvents) {
   calendar.removeAllEvents(); // Remove existing events
   calendar.addEventSource(newEvents); // Add new events
 }
-  
-function addNewBookToCalendar(bookObj){
-  ipcRenderer.send('add-book', (bookObj))
-}
 
-function handleDeleteBook(bookId){
-  ipcRenderer.send('delete-book', (bookId));
-}
+////////////////////////////
+//     CRUD Operations    //
+////////////////////////////
 
-/////////////////////////////
-////// CRUD Operations /////
-///////////////////////////
-
-  //*******//
- // Books //
+//*******//
+// Books //
 //*******//
 
 // Create a new book
@@ -211,8 +203,8 @@ function deleteBook(bookId) {
   ipcRenderer.send('delete-book', bookId);
 }
 
-  //********//
- // Events //
+//********//
+// Events //
 //********//
 
 // Update an event
@@ -226,10 +218,16 @@ function deleteEvent(eventId) {
   // ipcRenderer.send('delete-event', eventId);
 }
 
-  //****************//
- // Blackout Dates //
+//****************//
+// Blackout Dates //
 //****************//
 
+// Create a new blackout date
 function createBlackoutDate(blackoutDate) {
   ipcRenderer.send('create-blackout-date', blackoutDatedate);
+}
+
+// Delete a blackout date
+function deleteBlackoutDate(blackoutDateId) {
+  ipcRenderer.send('delete-blackout-date', blackoutDateId);
 }
