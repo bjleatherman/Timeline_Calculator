@@ -46,8 +46,8 @@ let mainWindow;
 function createMainWindow(){
     mainWindow = new BrowserWindow({
         title: 'Time Calculator',
-        width: isDev ? 1200 : 800,
-        height: 750,
+        width: isDev ? 1920 : 1920,
+        height: 1080,
 
         // Get stuff from preload
         webPreferences: {
