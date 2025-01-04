@@ -8,8 +8,7 @@ const estEndDate = getEstEndDate();
 const minDate = getDateYearOffset(-1);
 const maxDate = getDateYearOffset(1);
 
-// console.log(`minDate: ${minDate}\nmaxDate: ${maxDate}`);
-
+// Load the events file path and sets the dates for the forms on window load
 window.onload = (event) => {
   ipcRenderer.send('getEventsFilePath', {}); // Loads the event files into the view...for some reason
   setFormDates(); // Set the form dates to the current date
@@ -89,6 +88,7 @@ function alertSuccess(message){
   });
 }
 
+// Initialize the calendar object
 function initializeCalendar(todaysDate, currEvents) {
 var calendarEl = document.getElementById('calendar');
 
@@ -180,9 +180,25 @@ function updateCalendarEvents(todaysDate, newEvents) {
   calendar.addEventSource(newEvents); // Add new events
 }
 
+///////////////////////////////
+//     IPC Communications    //
+///////////////////////////////
+//#region IPC Communications
+
+//******//
+// Send //
+//******//
+
+//*********//
+// Receive //
+//*********//
+
+//#endregion IPC Communications
+
 ////////////////////////////
 //     CRUD Operations    //
 ////////////////////////////
+//#region CRUD Operations
 
 //*******//
 // Books //
@@ -231,3 +247,4 @@ function createBlackoutDate(blackoutDate) {
 function deleteBlackoutDate(blackoutDateId) {
   ipcRenderer.send('delete-blackout-date', blackoutDateId);
 }
+//#endregion CRUD Operations
