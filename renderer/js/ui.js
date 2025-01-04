@@ -1,7 +1,5 @@
 // Description: Handles all UI updates and event listeners for the front end.
 
-// Description: Handles all UI updates and event listeners for the front end.
-
 submitBtn = document.getElementById('new-book-submit');
 newBookForm = document.getElementById('new-book-form');
 editBookForm = document.getElementById('edit-book-form');
