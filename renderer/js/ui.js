@@ -112,7 +112,7 @@ function buildNavBar() {
         let editBtn = document.createElement('button');
         editBtn.className = 'btn btn-secondary edit-btn my-2';
         editBtn.textContent = 'Edit';
-        editBtn.setAttribute('value', bookGroup)
+        editBtn.setAttribute('value', book.groupId)
 
         btnLi.appendChild(editBtn)
         childUl.appendChild(btnLi);
