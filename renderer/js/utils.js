@@ -1,34 +1,14 @@
-function updateEditBtns(){
-    editBtns = document.querySelectorAll('.edit-btn');
-    editBtns.forEach((btn) =>{
-        btn.addEventListener('click', function(event) {
-            event.stopPropagation();
-            
-            // Get book to edit
-            const bookId = btn.value;
-            const book = getBookFromId(bookId)
-            editBookModal(book)
-        });
-    });
-}
+// Description: This file contains utility functions that are used in the front end.
 
-function editBookModal(book) {
- 
-    const editModal = new bootstrap.Modal(document.getElementById('edit-book-modal'))
-    editBookForm.setAttribute('value', book.bookId);
-    document.getElementById('edit-title').value = book.title;
-    document.getElementById('edit-author').value = book.author;
-    document.getElementById('edit-words').value = book.words;
-    document.getElementById('edit-pages').value = book.pages;
-    document.getElementById('edit-type').value = book.type;
-    document.getElementById('edit-letterDayFloat').value = book.letterDayFloat;
-    document.getElementById('edit-receiveDate').value = book.receiveDate;
-    document.getElementById('edit-dueDate').value = book.dueDate;
-    document.getElementById('edit-color-picker').value = book.color;
+///////////////////////////////////
+//    Model Related Functions    //
+///////////////////////////////////
 
-    editModal.show()
-}
+//*******//
+// Books //
+//*******//
 
+// Gets the book object from the bookId
 function getBookFromId(id){
     let foundBook = ''
     calEvents.books.forEach((book) => {
