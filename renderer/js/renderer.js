@@ -180,12 +180,6 @@ function initializeCalendar(todaysDate, currEvents) {
     calendar.addEventSource(newEvents); // Add new events
   }
 
-  // This is a duplicate method??
-  // ipcRenderer.on('events-updated', (filePath) => {
-  //   // console.log(`Events Updated: ${filePath}`);
-  //   loadEvents(filePath)
-  // })
-  
   function addNewBookToCalendar(bookObj){
     ipcRenderer.send('add-book', (bookObj))
   }
