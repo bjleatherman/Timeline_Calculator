@@ -28,7 +28,8 @@ const bookManager = new BookManager();
 const eventManager = new EventManager();
 const blackoutDateManager = new BlackoutDateManager();
 
-const state = new State(bookManager, eventManager, blackoutDateManager, 'EVENTS_FILEPATH'); // State loads itself now
+const state = new State(bookManager, eventManager, blackoutDateManager, EVENTS_FILEPATH); // State loads itself now
+state.resetState();
 
 // Register services
 ServiceLocator.register('bookManager', bookManager);
@@ -106,8 +107,8 @@ ipcMain.on('add-book', (e, bookObj) => {
     // });
     // let updatedJsonString = JSON.stringify(jsonData, null,2);
     // fs.writeFileSync(EVENTS_FILEPATH, updatedJsonString);
-
-    state.addBook(bookObj.data);
+    //console.log(bookObj);
+    state.addBook(bookObj);
 });
 
 ipcMain.on('delete-book', (e, bookId) => {
