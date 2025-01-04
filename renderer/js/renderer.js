@@ -7,6 +7,7 @@ const todaysDate = getFormattedDate();
 const estEndDate = getEstEndDate();
 const minDate = getDateYearOffset(-1);
 const maxDate = getDateYearOffset(1);
+const estEndDateOffset = 10;
 
 // Load the events file path and sets the dates for the forms on window load
 window.onload = (event) => {
@@ -35,57 +36,6 @@ function loadEvents(filePath, callback) {
       callback(todaysDate, calEvents.events);
     })
     .then(() => buildNavBar());
-}
-
-// Get todays date so that the calendar knows where to open to
-function getFormattedDate() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  
-  return `${year}-${month}-${day}`;
-}
-
-function getDateYearOffset(offset) {
-  let date = new Date();
-  const year = date.getFullYear() + offset;
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
-
-function getEstEndDate() {
-  let date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate() + 10).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
-
-function setFormDates() {
-  document.getElementById('receiveDate').value = todaysDate;
-  document.getElementById('receiveDate').min = minDate;
-  document.getElementById('receiveDate').max = maxDate;
-
-  document.getElementById('dueDate').value = estEndDate;
-  document.getElementById('dueDate').min = minDate;
-  document.getElementById('dueDate').max = maxDate;
-}
-
-function alertSuccess(message){
-  Toastify.toast({
-    text: message,
-    duration: 500,
-    close: false,
-    style:{
-      background: 'green',
-      color: 'white',
-      textAlign: 'center'
-    }
-  });
 }
 
 // Initialize the calendar object
