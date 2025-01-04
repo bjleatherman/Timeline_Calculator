@@ -1,3 +1,7 @@
+// Description: Handles all UI updates and event listeners for the front end.
+
+// Description: Handles all UI updates and event listeners for the front end.
+
 submitBtn = document.getElementById('new-book-submit');
 newBookForm = document.getElementById('new-book-form');
 editBookForm = document.getElementById('edit-book-form');
@@ -265,12 +269,12 @@ function deleteBookFromModal() {
 /////////////////////////////
 //#region Event Listeners
 
-// Submit New Book Button
+// Submit New Book Button in New Book Modal
 newBookForm.addEventListner('submit', (event) => {
     addBookFromModal(event);
 });
 
-// Edit Book Submit Button
+// Edit Book Submit Button in Edit Book Modal
 editBookForm.addEventListner('submit', (event) => {
     editBookFromModal(event);
 });
