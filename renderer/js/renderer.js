@@ -187,3 +187,49 @@ function initializeCalendar(todaysDate, currEvents) {
   function handleDeleteBook(bookId){
     ipcRenderer.send('delete-book', (bookId));
   }
+
+/////////////////////////////
+////// CRUD Operations /////
+///////////////////////////
+
+  //*******//
+ // Books //
+//*******//
+
+// Create a new book
+function createBook(book) {
+  ipcRenderer.send('create-book', book);
+}
+
+// Update a book
+function updateBook(book) {
+  ipcRenderer.send('update-book', book);
+}
+
+// Delete a book
+function deleteBook(bookId) {
+  ipcRenderer.send('delete-book', bookId);
+}
+
+  //********//
+ // Events //
+//********//
+
+// Update an event
+function updateEvent(event) {
+  ipcRenderer.send('update-event', event);
+}
+
+// Delete an event
+function deleteEvent(eventId) {
+  throw new Error('Not implemented');
+  // ipcRenderer.send('delete-event', eventId);
+}
+
+  //****************//
+ // Blackout Dates //
+//****************//
+
+function createBlackoutDate(blackoutDate) {
+  ipcRenderer.send('create-blackout-date', blackoutDatedate);
+}
