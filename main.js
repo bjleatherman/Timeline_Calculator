@@ -4,6 +4,11 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 
+// Electron Configuration
+const isMac = process.platform === 'darwin';
+process.env.NODE_ENV = 'development';
+const isDev = process.env.NODE_ENV !== 'production'
+
 // Import State, Models and Managers
 const { State } = require ('./State/State.js');
 const { Book } = require ('./Model/Book.js');
@@ -15,21 +20,16 @@ const { BlackoutDateManager } = require ('./State/BlackoutDateManager.js');
 const { ServiceLocator } = require('./Services/ServiceLocator.js');
 console.log(ServiceLocator); // Should log the object or `undefined`
 
-// Electron Configuration
-const isMac = process.platform === 'darwin';
-process.env.NODE_ENV = 'development';
-const isDev = process.env.NODE_ENV !== 'production'
-
-
 // State variables
 const EVENTS_FILEPATH = path.join(__dirname, './renderer/events/data.json')
 
+// Managers
 const bookManager = new BookManager();
 const eventManager = new EventManager();
 const blackoutDateManager = new BlackoutDateManager();
 
 const state = new State(bookManager, eventManager, blackoutDateManager, EVENTS_FILEPATH); // State loads itself now
-state.resetState();
+state.resetState(); // Reset the state for testing
 
 // Register services
 ServiceLocator.register('bookManager', bookManager);
@@ -40,6 +40,7 @@ ServiceLocator.register('blackoutDateManager', blackoutDateManager);
 //////////////////////////////
 //     Window Management    //
 //////////////////////////////
+//#region Window Management
 let mainWindow;
 
 function createMainWindow(){
@@ -60,8 +61,9 @@ function createMainWindow(){
         mainWindow.webContents.openDevTools();
     }
 
-    console.log(`${__dirname}`);
+    // console.log(`${__dirname}`);
 
+    // Load the index.html file into the window
     mainWindow.loadFile(path.join(__dirname, './renderer/index.html'));
 }
 
@@ -83,6 +85,7 @@ app.on('window-all-closed', () => {
         app.quit();
     }
 });
+//#endregion Window Management
 
 ///////////////////////////////////////
 //     Non State Data To Renderer    //
@@ -93,7 +96,7 @@ ipcMain.on('getEventsFilePath', (e, data) => {
     mainWindow.webContents.send('eventsFilePath', path.join(EVENTS_FILEPATH))
 });
 
-// Tell the renderer that the file was updated //
+// Tell the renderer that the file was updated
 fs.watch(EVENTS_FILEPATH, (eventType, fileName) => {
     if(eventType === 'change') {
         mainWindow.webContents.send('events-updated', EVENTS_FILEPATH)
