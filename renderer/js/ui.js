@@ -1,10 +1,10 @@
 // Description: Handles all UI updates and event listeners for the front end.
 
-submitBtn = document.getElementById('new-book-submit');
-newBookForm = document.getElementById('new-book-form');
-editBookForm = document.getElementById('edit-book-form');
-sideBarDataView = document.getElementById('book-sidebar-menu');
-editDeleteBtn = document.getElementById('delete-book');
+const submitBtn = document.getElementById('new-book-submit');
+const newBookForm = document.getElementById('new-book-form');
+const editBookForm = document.getElementById('edit-book-form');
+const sideBarDataView = document.getElementById('book-sidebar-menu');
+const editDeleteBtn = document.getElementById('delete-book');
 
 let editBtns = '';
 
@@ -279,12 +279,12 @@ function deleteBookFromModal() {
 //#region Event Listeners
 
 // Submit New Book Button in New Book Modal
-newBookForm.addEventListner('submit', (event) => {
+newBookForm.addEventListener('submit', (event) => {
     addBookFromModal(event);
 });
 
 // Edit Book Submit Button in Edit Book Modal
-editBookForm.addEventListner('submit', (event) => {
+editBookForm.addEventListener('submit', (event) => {
     editBookFromModal(event);
 });
 
