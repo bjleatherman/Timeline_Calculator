@@ -1,4 +1,4 @@
-const isValidDate = require('../utils.js');
+const { isValidDate } = require('../utils.js');
 
 class Book {
     /**
@@ -60,4 +60,4 @@ class Book {
     }
 }
 
-exports.Book = Book;
+module.exports = Book;

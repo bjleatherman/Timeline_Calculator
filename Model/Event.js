@@ -1,4 +1,4 @@
-const isValidDate = require('../utils.js');
+const { isValidDate } = require('../utils.js');
 
 class Event {
 
@@ -67,4 +67,4 @@ class Event {
     }
 }
 
-exports.Event = Event;
+module.exports = Event;
