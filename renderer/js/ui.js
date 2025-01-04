@@ -138,6 +138,48 @@ function buildNavBar() {
     updateEditBtns();
 }
 
+// Edit buttons in sidebar
+function updateEditBtns(){
+    editBtns = document.querySelectorAll('.edit-btn');
+    editBtns.forEach((btn)=>{
+        addEditBtnListener(btn);
+    });
+}
+
+//********//
+// Modals //
+//********//
+
+// Sets the date fields in the modals to the current date and the due date to 10 days from now
+function setFormDates() {
+    document.getElementById('receiveDate').value = todaysDate;
+    document.getElementById('receiveDate').min = minDate;
+    document.getElementById('receiveDate').max = maxDate;
+  
+    document.getElementById('dueDate').value = estEndDate;
+    document.getElementById('dueDate').min = minDate;
+    document.getElementById('dueDate').max = maxDate;
+  }
+  
+// Populates the Edit book modal with the book data then shows the modal
+// Called from .edit-btn event listener - recieves book object from bookId bound to .edit-btn
+function editBookModal(book) {
+    const editModal = new bootstrap.Modal(document.getElementById('edit-book-modal'))
+    editBookForm.setAttribute('value', book.bookId);
+    document.getElementById('edit-title').value = book.title;
+    document.getElementById('edit-author').value = book.author;
+    document.getElementById('edit-words').value = book.words;
+    document.getElementById('edit-pages').value = book.pages;
+    document.getElementById('edit-type').value = book.type;
+    document.getElementById('edit-letterDayFloat').value = book.letterDayFloat;
+    document.getElementById('edit-receiveDate').value = book.receiveDate;
+    document.getElementById('edit-dueDate').value = book.dueDate;
+    document.getElementById('edit-color-picker').value = book.color;
+
+    editModal.show()
+}
+
+
 ////////////////////////////////
 //   Handle CRUD Operations   //
 ////////////////////////////////
@@ -237,4 +279,17 @@ editBookForm.addEventListner('submit', (event) => {
 editDeleteBtn.addEventListener('click', () => {
     deleteBookFromModal();
 });
+
+// Edit Buttons in Sidebar
+function addEditBtnListener(btn) {
+    btn.addEventListener('click', function(event) {
+        event.stopPropagation();
+        
+        // Get book to edit
+        const bookId = btn.value;
+        const book = getBookFromId(bookId)
+        editBookModal(book)
+    });
+}
+
 //#endregion Event Listeners
