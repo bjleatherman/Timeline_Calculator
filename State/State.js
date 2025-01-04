@@ -89,10 +89,12 @@ class State {
     ////////////////////////////
     //     CRUD Operations    //
     ////////////////////////////
+    //#region CRUD Operations
 
     //*******//
     // Books //
     //*******//
+    //#region Books
 
     // Add new book
     addBook(book) {
@@ -132,10 +134,12 @@ class State {
 
         this.saveState();
     }
+    //#endregion Books
 
     //********//
     // Events //
     //********//
+    //#region Events
 
     // Update events from a specific event point
     updateEvents(updatedEvent, saveState=true, returnEvents=false) {
@@ -170,10 +174,12 @@ class State {
         this.events = this.events.filter(event => event.id !== eventId);
         this.saveState();
     }
+    //#endregion Events
 
     //****************//
     // Blackout Dates //
     //****************//
+    //#region Blackout Dates
 
     // Add new blackout date
     addBlackoutDate(blackoutDate) {
@@ -204,7 +210,9 @@ class State {
             this.saveState();
         }
     }
-
+    //#endregion Blackout Dates
+    //#endregion CRUD Operations
+    
     /////////////////////////////
     //     Helper Functions    //
     /////////////////////////////
