@@ -11,31 +11,21 @@ const estEndDateOffset = 10;
 
 // Load the events file path and sets the dates for the forms on window load
 window.onload = (event) => {
-  ipcRenderer.send('getEventsFilePath', {}); // Loads the event files into the view...for some reason
+  getEventsFilePathFromMain();
   setFormDates(); // Set the form dates to the current date
 };
 
-// Receive the file location of the events.json file...eventually a consequence of window.onLoad
-ipcRenderer.on('eventsFilePath', (filePath) => {
-  calEventsFilePath = filePath; // Global variable to store the file path
-  // console.log(`received from main ${filePath}`);
-  loadEvents(filePath, initializeCalendar);
-});
-
-ipcRenderer.on('events-updated', (filePath) => {
-  // console.log(`Events Updated: ${filePath}`);
-  loadEvents(filePath, updateCalendarEvents);
-});
-
+// Show the data from events file
+// Updates calendar and nav bar
 function loadEvents(filePath, callback) {
-  fetch(filePath)
-    .then((response) => response.json())
+  fetch(filePath) // Get the file
+    .then((response) => response.json()) // Parse the JSON
     .then((json) => {
-      calEvents = json;
-      const todaysDate = getFormattedDate();
-      callback(todaysDate, calEvents.events);
+      calEvents = json; // Store the events in a global variable
+      const todaysDate = getFormattedDate(); // Get the current date
+      callback(todaysDate, calEvents.events); // Initialize/Update the calendar
     })
-    .then(() => buildNavBar());
+    .then(() => buildNavBar()); // Build the nav bar
 }
 
 // Initialize the calendar object
@@ -49,7 +39,6 @@ var calendarEl = document.getElementById('calendar');
       right: 'dayGridMonth,dayGridWeek'
       // right: 'dayGridMonth,dayGridWeek,dayGridDay'
     },
-    // initialDate: '2024-01-12',
     initialDate: todaysDate,
     navLinks: true, // can click day/week names to navigate views
     editable: true,
@@ -125,25 +114,38 @@ var calendarEl = document.getElementById('calendar');
   });
 };
 
-function updateCalendarEvents(todaysDate, newEvents) {
-  calendar.removeAllEvents(); // Remove existing events
-  calendar.addEventSource(newEvents); // Add new events
-}
-
-///////////////////////////////
-//     IPC Communications    //
-///////////////////////////////
-//#region IPC Communications
+////////////////////////////////////
+//    Other IPC Communications    //
+////////////////////////////////////
+//#region Other IPC Communications
 
 //******//
 // Send //
 //******//
 
+// Get the file path of the events.json file
+//   Triggers ipcRenderer.on('eventsFilePath',...)
+//   Eventually loads the events.json file into the view
+function getEventsFilePathFromMain() {
+  ipcRenderer.send('getEventsFilePath', {});
+}
+
 //*********//
 // Receive //
 //*********//
 
-//#endregion IPC Communications
+// Receive the file location of the events.json file build nav bar and initialize the calendar
+ipcRenderer.on('eventsFilePath', (filePath) => {
+  calEventsFilePath = filePath; // Global variable to store the file path
+  loadEvents(filePath, initializeCalendar);
+});
+
+// Receive the updated events.json file, build the nav bar and update the calendar
+ipcRenderer.on('events-updated', (filePath) => {
+  loadEvents(filePath, updateCalendarEvents);
+});
+
+//#endregion Other IPC Communications
 
 ////////////////////////////
 //     CRUD Operations    //

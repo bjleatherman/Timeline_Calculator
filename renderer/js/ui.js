@@ -8,9 +8,20 @@ editDeleteBtn = document.getElementById('delete-book');
 
 let editBtns = '';
 
-////////////////////
-//   UI Updates   //
-////////////////////
+//////////////////////
+//    UI Updates    //
+//////////////////////
+//#region UI Updates
+
+//**********//
+// Calendar //
+//**********//
+
+// Updates the events on the calendar with new events
+function updateCalendarEvents(todaysDate, newEvents) {
+    calendar.removeAllEvents(); // Remove existing events
+    calendar.addEventSource(newEvents); // Add new events
+}
 
 //*********//
 // Alerts  //
@@ -28,7 +39,7 @@ function alertSuccess(message){
         textAlign: 'center'
       }
     });
-  }
+}
 
 //**********//
 // Nav Bars //
@@ -180,7 +191,7 @@ function editBookModal(book) {
 
     editModal.show()
 }
-
+//#endregion UI Updates
 
 ////////////////////////////////
 //   Handle CRUD Operations   //
@@ -293,5 +304,4 @@ function addEditBtnListener(btn) {
         editBookModal(book)
     });
 }
-
 //#endregion Event Listeners
