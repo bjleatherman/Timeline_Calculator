@@ -77,116 +77,116 @@ function setFormDates() {
 }
 
 function alertSuccess(message){
-    Toastify.toast({
-      text: message,
-      duration: 500,
-      close: false,
-      style:{
-        background: 'green',
-        color: 'white',
-        textAlign: 'center'
-      }
-    });
-  }
+  Toastify.toast({
+    text: message,
+    duration: 500,
+    close: false,
+    style:{
+      background: 'green',
+      color: 'white',
+      textAlign: 'center'
+    }
+  });
+}
 
 function initializeCalendar(todaysDate, currEvents) {
-  var calendarEl = document.getElementById('calendar');
+var calendarEl = document.getElementById('calendar');
 
-    calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next, today',
-        center: 'title',
-        right: 'dayGridMonth,dayGridWeek'
-        // right: 'dayGridMonth,dayGridWeek,dayGridDay'
-      },
-      // initialDate: '2024-01-12',
-      initialDate: todaysDate,
-      navLinks: true, // can click day/week names to navigate views
-      editable: true,
-      selectable: true,
-      dayMaxEvents: true, // allow "more" link when too many events
-      contentHeight: 'auto',
-      // events: [
-      //   {
-      //     title: 'All Day Event',
-      //     start: '2024-06-01'
-      //   },
-      //   {
-      //     title: 'Long Event',
-      //     start: '2024-06-07',
-      //     end: '2024-06-10'
-      //   },
-      //   {
-      //     groupId: 999,
-      //     title: '0 Repeating Event',
-      //     start: '2024-06-09T16:00:00'
-      //   },
-      //   {
-      //     groupId: 999,
-      //     title: '1 Repeating Event',
-      //     start: '2024-06-16T16:00:00'
-      //   },
-      //   {
-      //     title: 'Conference',
-      //     start: '2024-06-11',
-      //     end: '2024-06-13'
-      //   },
-      //   {
-      //     title: 'Meeting',
-      //     start: '2024-06-12T10:30:00',
-      //     end: '2024-06-12T12:30:00'
-      //   },
-      //   {
-      //     title: 'Lunch',
-      //     start: '2024-06-12T12:00:00'
-      //   },
-      //   {
-      //     title: 'Meeting',
-      //     start: '2024-06-12T14:30:00'
-      //   },
-      //   {
-      //     title: 'Happy Hour',
-      //     start: '2024-06-12T17:30:00'
-      //   },
-      //   {
-      //     title: 'Dinner',
-      //     start: '2024-06-12T20:00:00'
-      //   },
-      //   {
-      //     title: 'Birthday Party',
-      //     start: '2024-06-13T07:00:00'
-      //   },
-      //   {
-      //     title: 'Click for Google',
-      //     url: 'http://google.com/',
-      //     start: '2024-06-28'
-      //   }
-      // ],
-      events: currEvents,
-      dateClick: function() {
-        console.log(`date clicked`);
-      }
-    });
+  calendar = new FullCalendar.Calendar(calendarEl, {
+    headerToolbar: {
+      left: 'prev,next, today',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek'
+      // right: 'dayGridMonth,dayGridWeek,dayGridDay'
+    },
+    // initialDate: '2024-01-12',
+    initialDate: todaysDate,
+    navLinks: true, // can click day/week names to navigate views
+    editable: true,
+    selectable: true,
+    dayMaxEvents: true, // allow "more" link when too many events
+    contentHeight: 'auto',
+    // events: [
+    //   {
+    //     title: 'All Day Event',
+    //     start: '2024-06-01'
+    //   },
+    //   {
+    //     title: 'Long Event',
+    //     start: '2024-06-07',
+    //     end: '2024-06-10'
+    //   },
+    //   {
+    //     groupId: 999,
+    //     title: '0 Repeating Event',
+    //     start: '2024-06-09T16:00:00'
+    //   },
+    //   {
+    //     groupId: 999,
+    //     title: '1 Repeating Event',
+    //     start: '2024-06-16T16:00:00'
+    //   },
+    //   {
+    //     title: 'Conference',
+    //     start: '2024-06-11',
+    //     end: '2024-06-13'
+    //   },
+    //   {
+    //     title: 'Meeting',
+    //     start: '2024-06-12T10:30:00',
+    //     end: '2024-06-12T12:30:00'
+    //   },
+    //   {
+    //     title: 'Lunch',
+    //     start: '2024-06-12T12:00:00'
+    //   },
+    //   {
+    //     title: 'Meeting',
+    //     start: '2024-06-12T14:30:00'
+    //   },
+    //   {
+    //     title: 'Happy Hour',
+    //     start: '2024-06-12T17:30:00'
+    //   },
+    //   {
+    //     title: 'Dinner',
+    //     start: '2024-06-12T20:00:00'
+    //   },
+    //   {
+    //     title: 'Birthday Party',
+    //     start: '2024-06-13T07:00:00'
+    //   },
+    //   {
+    //     title: 'Click for Google',
+    //     url: 'http://google.com/',
+    //     start: '2024-06-28'
+    //   }
+    // ],
+    events: currEvents,
+    dateClick: function() {
+      console.log(`date clicked`);
+    }
+  });
 
-    calendar.render();
+  calendar.render();
 
-    calendar.on('dateClick', function(info) {
-      console.log('clicked on ' + info.dateStr);
-    });
-  };
+  calendar.on('dateClick', function(info) {
+    console.log('clicked on ' + info.dateStr);
+  });
+};
 
-  function updateCalendarEvents(todaysDate, newEvents) {
-    calendar.removeAllEvents(); // Remove existing events
-    calendar.addEventSource(newEvents); // Add new events
-  }
+function updateCalendarEvents(todaysDate, newEvents) {
+  calendar.removeAllEvents(); // Remove existing events
+  calendar.addEventSource(newEvents); // Add new events
+}
+  
+function addNewBookToCalendar(bookObj){
+  ipcRenderer.send('add-book', (bookObj))
+}
 
-  function addNewBookToCalendar(bookObj){
-    ipcRenderer.send('add-book', (bookObj))
-  }
-
-  function handleDeleteBook(bookId){
-    ipcRenderer.send('delete-book', (bookId));
-  }
+function handleDeleteBook(bookId){
+  ipcRenderer.send('delete-book', (bookId));
+}
 
 /////////////////////////////
 ////// CRUD Operations /////
