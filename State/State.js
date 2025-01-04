@@ -108,7 +108,7 @@ class State {
     }
 
     // Update a book
-    updatebook(updatedBook) {
+    updateBook(updatedBook) {
         
         throw new Error('Not implemented');
 
