@@ -78,12 +78,22 @@ function formatNumbersWithComma(num){
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+//*********//
+// Dates //
+//*********//
+
+// Formats a date string to MM/DD/YY
 function formatDateToMDYY(dateString) {
     const date = new Date(dateString);
     const options = {year: '2-digit', month: 'numeric', day: 'numeric'};
     return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 
+//******//
+// Text //
+//******//
+
+// Gets the contrast color for a given hex color
 function getContrastColor(hex) {
     // Remove the hash at the start if it's there
     hex = hex.replace(/^#/, '');
@@ -98,4 +108,5 @@ function getContrastColor(hex) {
   
     // Return black for light colors and white for dark colors
     return brightness > 155 ? 'black' : 'white';
-  }
+}
+//#endregion Formatting Functions
