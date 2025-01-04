@@ -45,6 +45,52 @@ function getBookFromId(id){
     return foundBook;
 }
 
+////////////////////////////
+//   Date Calculations    //
+////////////////////////////
+//#region Date Calculations
+
+// Get todays date [YYYY-MM-DD]
+function getFormattedDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
+
+// Get the date of today + specified offset in years [YYYY-MM-DD]
+function getDateYearOffset(offset) {
+    let date = new Date();
+    const year = date.getFullYear() + offset;
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
+// Get the estimated due date of the book [YYYY-MM-DD]
+function getEstEndDate() {
+    let date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate() + estEndDateOffset).padStart(2, '0');
+  
+    return `${year}-${month}-${day}`;
+}
+//#endregion Date Calculations
+
+///////////////////////////////
+//   Formatting Functions    //
+///////////////////////////////
+//#region Formatting Functions
+
+//*********//
+// Numbers //
+//*********//
+
+// Formats numbers with commas
 function formatNumbersWithComma(num){
     if (num === undefined) {
         return '';
