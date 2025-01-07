@@ -103,7 +103,7 @@ fs.watch(EVENTS_FILEPATH, (eventType, fileName) => {
     watchTimer = setTimeout(() => {
       mainWindow.webContents.send('events-updated', EVENTS_FILEPATH);
     }, 200); // 200ms (or any short delay)
-    }
+  }
 });
 
 ////////////////////////////
