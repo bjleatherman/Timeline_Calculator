@@ -8,6 +8,7 @@ let estEndDate = '';
 let minDate = ''; 
 let maxDate = ''; 
 const estEndDateOffset = 10;
+const blackoutEventsGroupId = 0;
 
 // Load the events file path and sets the dates for the forms on window load
 window.onload = (event) => {
