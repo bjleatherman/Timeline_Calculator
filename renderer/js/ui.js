@@ -3,8 +3,13 @@
 const submitBtn = document.getElementById('new-book-submit');
 const newBookForm = document.getElementById('new-book-form');
 const editBookForm = document.getElementById('edit-book-form');
+const editEventForm = document.getElementById('edit-event-form');
 const sideBarDataView = document.getElementById('book-sidebar-menu');
 const editDeleteBtn = document.getElementById('delete-book');
+
+// ?
+const editBookModal = document.getElementById('edit-book-modal');
+const editEventModal = document.getElementById('edit-event-modal');
 
 let editBtns = '';
 
