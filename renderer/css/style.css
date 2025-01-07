@@ -42,3 +42,9 @@ body {
 a.fc-daygrid-number {
     color: var(--fc-day-num-color) !important;
 }
+
+/* Prevents Drag issues in forms */
+input, textarea {
+    -webkit-user-select: none;
+    user-select: text;
+}
