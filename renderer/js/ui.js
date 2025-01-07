@@ -261,7 +261,7 @@ function setFormDates() {
   
 // Populates the Edit book modal with the book data then shows the modal
 // Called from .edit-btn event listener - recieves book object from bookId bound to .edit-btn
-function editBookModal(book) {
+function showEditBookModal(book) {
     const editModal = new bootstrap.Modal(document.getElementById('edit-book-modal'))
     editBookForm.setAttribute('value', book.groupId);
     document.getElementById('edit-title').value = book.title;
@@ -386,7 +386,7 @@ function addEditBtnListener(btn) {
         // Get book to edit
         const bookId = btn.value;
         const book = getBookFromId(bookId)
-        editBookModal(book)
+        showEditBookModal(book)
     });
 }
 //#endregion Event Listeners
