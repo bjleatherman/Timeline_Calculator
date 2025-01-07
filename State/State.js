@@ -44,7 +44,7 @@ class State {
                 return new Event(eventData);
             });
     
-                this.nextGroupId = this.books.reduce((maxId, book) => Math.max(maxId, book.groupId || 0), 0) + 1;
+            this.nextGroupId = this.books.reduce((maxId, book) => Math.max(maxId, book.groupId || 0), 0) + 1;
     
         } catch (error) {
             console.error("Error loading state, initializing defaults:", error);
@@ -120,8 +120,12 @@ class State {
 
     // Delete a book
     deleteBook(groupId) {
+
+        // Cast groupId to number
+        groupId = Number(groupId);
+
         // Remove the book
-        const book = this.books.find(book => book.id === groupId);
+        const book = this.books.find(book => book.groupId === groupId);
         if (book) {
             this.books = this.books.filter(book => book.groupId !== groupId);
         }
@@ -142,18 +146,20 @@ class State {
     //#region Events
 
     // Update events from a specific event point
+    // TODO: Rename to updateEvent
     updateEvents(updatedEvent, saveState=true, returnEvents=false) {
-        console.log(updatedEvent);
-        console.log(updatedEvent.groupId);
+        //console.log(updatedEvent);
+        //console.log(updatedEvent.groupId);
         const book = this.books.find(book => book.groupId === updatedEvent.groupId);
         if (!book) {
-            console.error(`No book found for groupId ${updatedEvent.groupId}`);
+            console.error(`No book found for groupId ${updatedEvent.groupId} when updating events.`);
             return;
         }
     
         const validDates = this.getValidDates(book);
         const events = this.events.filter(event => event.groupId === updatedEvent.groupId);
     
+        // TODO: Break this into its own method caled updateEvents
         const updatedEvents = this.eventManager.updateEvents(book, validDates, events, updatedEvent);
         this.events = this.events.filter(event => event.groupId !== updatedEvent.groupId).concat(updatedEvents);
     
