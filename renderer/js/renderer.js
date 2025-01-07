@@ -59,10 +59,7 @@ var calendarEl = document.getElementById('calendar');
   });
 
   calendar.render();
-
-  calendar.on('dateClick', function(info) {
-    console.log('clicked on ' + info.dateStr);
-  });
+  updateCalendarEvents(todaysDate, calEvents.events);
 };
 
 ////////////////////////////////////
