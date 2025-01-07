@@ -126,6 +126,7 @@ ipcMain.on('update-book', (e, book) => {
 
 // Delete Books
 ipcMain.on('delete-book', (e, groupId) => {
+    console.log(`Deleting book ${groupId}`);
     state.deleteBook(groupId);
 });
 
