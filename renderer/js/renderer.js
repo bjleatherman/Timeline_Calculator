@@ -38,14 +38,14 @@ var calendarEl = document.getElementById('calendar');
 
   calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
-      left: 'prev,next, today',
+      left: 'prev,next,today',
       center: 'title',
-      right: 'dayGridMonth,dayGridWeek'
+      right: 'dayGridYear,dayGridMonth,dayGridWeek'
       // right: 'dayGridMonth,dayGridWeek,dayGridDay'
     },
     initialDate: todaysDate,
     navLinks: true, // can click day/week names to navigate views
-    editable: true,
+    editable: false,
     selectable: true,
     dayMaxEvents: true, // allow "more" link when too many events
     contentHeight: 'auto',
