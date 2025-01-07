@@ -378,6 +378,11 @@ editDeleteBtn.addEventListener('click', () => {
     deleteBookFromModal();
 });
 
+// Edit Event Submit Button in Edit Event Modal
+editEventForm.addEventListener('submit', (event) => {
+    editEventFromModal(event);
+});
+
 // Edit Buttons in Sidebar
 function addEditBtnListener(btn) {
     btn.addEventListener('click', function(event) {
