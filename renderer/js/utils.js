@@ -9,21 +9,86 @@
 //*******//
 
 // Gets the book object from the bookId
-function getBookFromId(id){
+function getBookFromId(groupId){
     let foundBook = ''
     calEvents.books.forEach((book) => {
-        if (book.groupId == id) {
+        if (book.groupId == groupId) {
             foundBook = book
         }
     });
 
     if (foundBook === '') {
-        console.error(`No book found for groupId ${id}`);
+        console.error(`No book found for groupId ${groupId}`);
         return '';
     }
 
     return foundBook;
 }
+
+//********//
+// Events //
+//********//
+
+// Gets the event object from the eventId and the groupId
+function getEventFromIds(eventId, groupId){
+    let foundEvent = ''
+    calEvents.events.forEach((event) => {
+        if (event.eventId == eventId && event.groupId == groupId) {
+            foundEvent = event
+        }
+    });
+
+    if (foundEvent === '') {
+        console.error(`No event found for eventId ${id}`);
+        return '';
+    }
+
+    return foundEvent;
+}
+
+//***************//
+// BlackoutDates //
+//***************//
+
+// Gets all the blackout dates
+function getBlackoutDates() {
+    return calEvents.blackoutDates;
+}
+
+// Untested
+function isBlackoutDate(date) {
+    return calEvents.blackoutDates.dates.includes(date);
+}
+
+// Gets Blackout Date Object from the date
+function getBlackoutDate(date) {
+    let foundDate = '';
+    calEvents.blackoutDates.forEach((blackoutDate) => {
+        if (blackoutDate.date === date) {
+            foundDate = blackoutDate;
+        }
+    });
+    return foundDate;
+}
+
+// Generates events for calendar based onf the blackout dates in data storage
+function generateBlackoutEvents() {
+    const blackoutDates = getBlackoutDates();  // raw dates only
+    if (!blackoutDates || blackoutDates.length === 0) return [];
+  
+    const events = blackoutDates.map((item) => ({
+      groupId: blackoutEventsGroupId,
+      title: 'Blackout Date',
+      start: item.date,
+      backgroundColor: 'gray',
+      borderColor: 'black',
+      textColor: 'white'
+    }));
+  
+    return events; // Now only valid event objects
+  }
+  
+
 
 ////////////////////////////
 //   Date Calculations    //
@@ -38,7 +103,7 @@ function getFormattedDate() {
     const day = String(today.getDate()).padStart(2, '0');
     
     return `${year}-${month}-${day}`;
-  }
+}
 
 // Get the date of today + specified offset in years [YYYY-MM-DD]
 function getDateYearOffset(offset) {
@@ -82,11 +147,46 @@ function formatNumbersWithComma(num){
 // Dates //
 //*********//
 
-// Formats a date string to MM/DD/YY
+// Formats a date string to M/D/YY
 function formatDateToMDYY(dateString) {
     const date = new Date(dateString);
-    const options = {year: '2-digit', month: 'numeric', day: 'numeric'};
+    const options = {
+      year: '2-digit', 
+      month: 'numeric', 
+      day: 'numeric', 
+      timeZone: 'UTC' // Force UTC
+    };
     return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+
+// Formats a date string to YYYY-MM-DD
+function formatDateToYYYYMMDD(dateInput) {
+    const date = new Date(dateInput); // Create a Date object from the input
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+}
+
+// Chceks if a date is valid format [YYYY-MM-DD]
+function isValidDate(dateString) {
+    // Check if the string matches the format YYYY-MM-DD
+    const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    if (!dateRegex.test(dateString)) {
+        return false; // Fails format check
+    }
+
+    // Split the string into components
+    const [year, month, day] = dateString.split('-').map(Number);
+
+    // Check if the date components form a valid date
+    const date = new Date(year, month - 1, day); // Months are zero-indexed in JS Date
+    return (
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
+    );
 }
 
 //******//
