@@ -140,8 +140,8 @@ function buildNavBar() {
         }
     });
 
-    console.log(`building navbar`);
-    console.log(calEvents.books);
+    // console.log(`building navbar`);
+    // console.log(calEvents.books);
 
     calEvents.books.forEach((book) => {
 
