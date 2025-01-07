@@ -24,7 +24,7 @@ let editBtns = '';
 
 // Updates the events on the calendar with new events
 function updateCalendarEvents(todaysDate, newEvents) {
-
+    
     // Remove existing events
     calendar.removeAllEvents();
     
@@ -383,15 +383,15 @@ function editBookFromModal(event) {
 
 // Delete a book from the delete book button in the edit modal
 function deleteBookFromModal() {
-
+    
     if (confirm('Are you sure you want to delete this book?')) {
         // User clicked yes, proceed with delete
         console.log('Delete confirmed');
         const groupId = editBookForm.getAttribute('value');
-
+        
         var modal = bootstrap.Modal.getInstance(document.getElementById('edit-book-modal'));
         modal.hide();
-
+        
         deleteBook(groupId);
     }
 }
