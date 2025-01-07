@@ -19,9 +19,89 @@ let editBtns = '';
 
 // Updates the events on the calendar with new events
 function updateCalendarEvents(todaysDate, newEvents) {
-    calendar.removeAllEvents(); // Remove existing events
-    calendar.addEventSource(newEvents); // Add new events
+
+    // Remove existing events
+    calendar.removeAllEvents();
+    
+    // Add new events
+    calendar.addEventSource(newEvents);
+
+    try{
+        // Generate blackout events
+        const blackoutEvents = generateBlackoutEvents();
+        if (blackoutEvents) {
+            calendar.addEventSource(blackoutEvents);
+        }
+    }
+    catch (error) {
+        console.error(`Error generating blackout events: ${error}`);
+    }
 }
+
+// Handles clicking on an event in the calendar
+function handleEventClick(info) {
+    if (info.event.groupId * 1  === blackoutEventsGroupId) {
+        handleDateClick(info);
+    }
+    else {
+        handleUserEventClick(info);
+    }
+}
+
+// Handles clicking on a date in the calendar
+function handleDateClick(info) {
+
+    let date = '';
+    // Get the date object based on how the click was called
+    // TODO: make this not a try catch block
+    try{
+        // A blackout date event card was clicked
+        date = formatDateToYYYYMMDD(info.event.start);
+    }
+    catch {
+        // A full date box was clicked
+        date = info.dateStr;
+    }   
+    // console.log(`Date Clicked: ${date}`);
+    
+    if (!isValidDate(date)) {throw new Error('date of blackout event improperly formatted')}
+    let blackoutDate = getBlackoutDate(date);
+    
+    // Check if that date is a blackout date
+    if (blackoutDate) {
+        // If it is a blackout date, ask the user if they want to delete it
+        if (confirm('Are you sure you want to delete this blackout date?')) {
+            // User clicked yes, proceed with delete
+            deleteBlackoutDate(blackoutDate);
+        }
+    } 
+    else {
+        // If it is not a blackout date, ask the user if they want to add it
+        if (confirm('Do you want to set date as a blackout date?')) {
+            // User clicked yes, proceed with delete
+            blackoutDate = new localBlackoutDate(date);
+            createBlackoutDate(blackoutDate);
+        }
+    }
+}
+
+// Handles clicking on a user event in the calendar
+function handleUserEventClick(info) {
+    
+    const eventId = info.event.extendedProps.eventId * 1;
+    const groupId = info.event.groupId * 1;
+    console.log(`Event Clicked:
+        EventId: ${eventId}
+        GroupId: ${groupId}`);
+    
+    // Get the event from data storage
+    const event = getEventFromIds(eventId, groupId);
+    const book = getBookFromId(groupId);
+
+    // Populate the edit event modal with the event data
+    showEditEventModal(event, book);
+}
+
 
 //*********//
 // Alerts  //
