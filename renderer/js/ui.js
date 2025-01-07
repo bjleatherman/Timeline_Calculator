@@ -324,6 +324,7 @@ function showEditEventModal(event, book) {
 //*******//
 // Books //
 //*******//
+//#region Books UI CRUD
 
 // Create a book from the new book form modal
 function addBookFromModal(event) {
