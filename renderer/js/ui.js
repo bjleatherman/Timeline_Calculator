@@ -236,7 +236,7 @@ function buildNavBar() {
     updateEditBtns();
 }
 
-// Edit buttons in sidebar
+// Edit buttons in navbar sidebar
 function updateEditBtns(){
     editBtns = document.querySelectorAll('.edit-btn');
     editBtns.forEach((btn)=>{
