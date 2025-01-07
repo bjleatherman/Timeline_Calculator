@@ -31,27 +31,23 @@ class BlackoutDateManager {
 
     calcEventsBlackoutDateChange(affectedBooks, state) {
 
-        const eventManager = ServiceLocator.get('eventManager');
+        const newEvents = [];
 
-        let newEvents = [];
+        // Iterate over the affected books, updating each of their event groups
         affectedBooks.forEach(book => {
-            const firstEventData = state.events.filter(event => 
+
+            // Get the first event for each book and use it to recalculate the events from there
+            const firstEventData = state.events.find(event => 
                 book.groupId === event.groupId &&
                 event.eventId === 1
             );
 
-            if (firstEventData.length > 1) {
-                throw new Error('There should only be a single first event in an event series');
+            if (!firstEventData) {
+                throw new Error(`No event was found with Event Id ${firstEventData.eventId} and GroupId ${firstEventData.groupId}`);
             }
-
-            if (firstEventData.length === 1) {
-                const firstEvent = firstEventData.map(eventData => {
-                    return new Event({ ...eventData });
-                });
-                
-                const recalculatedEvents = state.updateEvents(firstEvent[0], false, true);
-                newEvents.push(recalculatedEvents);
-            }
+            
+            const recalculatedEvents = state.updateEvents(firstEventData, false, true);
+            newEvents.push(...recalculatedEvents);
         });
 
         return newEvents
