@@ -116,8 +116,8 @@ function updateBook(book) {
 }
 
 // Delete a book
-function deleteBook(bookId) {
-  ipcRenderer.send('delete-book', bookId);
+function deleteBook(groupId) {
+  ipcRenderer.send('delete-book', groupId);
 }
 
 //********//
