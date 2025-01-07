@@ -96,10 +96,13 @@ ipcMain.on('getEventsFilePath', (e, data) => {
     mainWindow.webContents.send('eventsFilePath', path.join(EVENTS_FILEPATH))
 });
 
-// Tell the renderer that the file was updated
+let watchTimer;
 fs.watch(EVENTS_FILEPATH, (eventType, fileName) => {
-    if(eventType === 'change') {
-        mainWindow.webContents.send('events-updated', EVENTS_FILEPATH)
+  if (eventType === 'change') {
+    clearTimeout(watchTimer);
+    watchTimer = setTimeout(() => {
+      mainWindow.webContents.send('events-updated', EVENTS_FILEPATH);
+    }, 200); // 200ms (or any short delay)
     }
 });
 
