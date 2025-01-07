@@ -175,7 +175,7 @@ function buildNavBar() {
         titleContainer.className = 'd-flex w-100 justify-content-between';
         
         let titleDiv = document.createElement('h5');
-        titleDiv.className = 'mb-1';
+        titleDiv.className = 'mt-1';
         titleDiv.textContent = book.title;
 
         titleContainer.appendChild(titleDiv);
