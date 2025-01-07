@@ -5,6 +5,7 @@ class EventManager {
     constructor() {
         console.log(`EventManager Constructed`);
         this.avgHoursPerDay = 5;
+        this.lettersOfTitleInEventTitle = 7;
     }
 
     calculateDailyGoals(wordsRemaining, pagesRemaining, editingUnitsRemaining) {
@@ -34,8 +35,10 @@ class EventManager {
         const isLastAvailableDay = (date === validDates[validDates.length - 1]);
 
         const previousEvent = newEvents[newEvents.length - 1] || {};
-        const wordProgress = updatedEvent.userWordProgress || ((previousEvent.userWordProgress || previousEvent.wordGoal) || 0);
-        const pageProgress = updatedEvent.userPageProgress || ((previousEvent.userPageProgress || previousEvent.pageGoal) || 0);
+        const wordProgress = ((previousEvent.userWordProgress || previousEvent.wordGoal) || 0);
+        const pageProgress = ((previousEvent.userPageProgress || previousEvent.pageGoal) || 0);
+        // const wordProgress = updatedEvent.userWordProgress || ((previousEvent.userWordProgress || previousEvent.wordGoal) || 0);
+        // const pageProgress = updatedEvent.userPageProgress || ((previousEvent.userPageProgress || previousEvent.pageGoal) || 0);
         let letterProgress = previousEvent.cumLetterHours || 0;
 
         const totalDatesRemaining = validDates.filter(x => x >= date).length;
@@ -59,6 +62,14 @@ class EventManager {
             wordGoal = wordProgress + dailyWordGoal;
             pageGoal = pageProgress + dailyPageGoal;
 
+            if (updatedEvent.userWordProgress) {
+                wordGoal = updatedEvent.userWordProgress;
+            }
+
+            if (updatedEvent.userPageProgress) {
+                pageGoal = updatedEvent.userPageProgress;
+            }
+
             if (totalUnitsRemaining <= letterDayFloat - letterProgress) {
                 dailyLetterHours = Math.max(this.avgHoursPerDay - editingUnitsRemaining, 0);
                 letterProgress += dailyLetterHours;
@@ -72,7 +83,8 @@ class EventManager {
         return new Event({
             groupId: groupId,
             eventId: (previousEvent.eventId || 0) + 1,
-            title: this.eventTitleGenerator(title, wordProgress, wordGoal, dailyLetterHours),
+            // title: this.wordEventTitleGenerator(title, wordProgress, wordGoal, dailyLetterHours, words),
+            title: this.pageEventTitleGenerator(title, pageProgress, pageGoal, dailyLetterHours, pages),
             start: date,
             wordsReached: wordProgress,
             wordGoal: wordGoal,
@@ -123,21 +135,70 @@ class EventManager {
     }
     
 
-    eventTitleGenerator(bookTitle, wordsReached, wordGoal, dailyLetterHours) {
+    wordEventTitleGenerator(bookTitle, wordsReached, wordGoal, dailyLetterHours, totalWords) {
         let WRFormatted = wordsReached;
         let WGFormatted = wordGoal;
+        let shownWordStatus = '';
         
+        const truncTitle = bookTitle.length > this.lettersOfTitleInEventTitle ? 
+            bookTitle.slice(0, this.lettersOfTitleInEventTitle) + '...:' 
+            : bookTitle + ':';
+
+        const letterInTitle = dailyLetterHours > 0 ?
+            ' Letter' 
+            : '';
+
+        // Format the word count if it is over 1000
         if (wordsReached > 1000){
             WRFormatted = (wordsReached / 1000).toFixed(1) + 'k';
         }
-
         if (wordGoal > 1000) {
             WGFormatted = (wordGoal / 1000).toFixed(1) + 'k';
         }
         
-        const title = bookTitle;
+        // Determine if the word count is the same
+        if (wordsReached === totalWords) {
+            shownWordStatus = ''
+        } 
+        else {
+            shownWordStatus = ` ${WRFormatted} to ${WGFormatted}`;
+        }
 
-        return `${title}: ${WRFormatted} of ${WGFormatted}${(dailyLetterHours > 0 ? ' & Letter' : '')}`
+        const ampersand = shownWordStatus.length > 0 && letterInTitle.length > 0 ?
+            ' &'
+            : '';
+        
+            
+        return `${truncTitle}${shownWordStatus}${ampersand}${letterInTitle}`
+    }    
+    
+    pageEventTitleGenerator(bookTitle, pagesReached, pagesGoal, dailyLetterHours, totalPages) {
+        let PRFormatted = pagesReached;
+        let PGFormatted = pagesGoal;
+        let shownWordStatus = '';
+        
+        const truncTitle = bookTitle.length > this.lettersOfTitleInEventTitle ? 
+            bookTitle.slice(0, this.lettersOfTitleInEventTitle) + '...:' 
+            : bookTitle + ':';
+
+        const letterInTitle = dailyLetterHours > 0 ?
+            ' Letter' 
+            : '';
+        
+        // Determine if the word count is the same
+        if (pagesReached === totalPages) {
+            shownWordStatus = ''
+        } 
+        else {
+            shownWordStatus = ` ${PRFormatted} to ${PGFormatted}`;
+        }
+
+        const ampersand = shownWordStatus.length > 0 && letterInTitle.length > 0 ?
+            ' &'
+            : '';
+        
+            
+        return `${truncTitle}${shownWordStatus}${ampersand}${letterInTitle}`
     }
 
     getTextColor(color) {
@@ -168,6 +229,14 @@ class EventManager {
     
         // Return light or dark text color based on luminance
         return luminance > 186 ? '#000000' : '#FFFFFF';
+      }
+
+      setAvgHoursPerDay(avgHoursPerDay) {
+        this.avgHoursPerDay = avgHoursPerDay;
+      }
+
+      setLettersOfTitleInEventTitle(lettersOfTitleInEventTitle) {
+        this.lettersOfTitleInEventTitle = lettersOfTitleInEventTitle;
       }
 }
 
