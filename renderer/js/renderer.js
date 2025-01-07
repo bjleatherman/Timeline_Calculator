@@ -140,7 +140,7 @@ function deleteEvent(eventId) {
 
 // Create a new blackout date
 function createBlackoutDate(blackoutDate) {
-  ipcRenderer.send('create-blackout-date', blackoutDatedate);
+  ipcRenderer.send('create-blackout-date', blackoutDate);
 }
 
 // Delete a blackout date
