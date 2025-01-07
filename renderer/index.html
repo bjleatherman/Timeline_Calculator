@@ -208,5 +208,87 @@
                 </div>
             </div>
         </div>
+        <!-- Edit Event Modal -->
+        <div class="modal fade" id="edit-event-modal" tabindex="-1" aria-labelledby="edit-event-modal-title" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                <h5 class="modal-title" id="edit-event-modal-title">Edit Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+        
+                <!-- Body -->
+                <div class="modal-body">
+                <form id="edit-event-form">
+                    <!-- Event Title (optional: decide if user can edit title) -->
+                           
+                    <!-- User Word/Page Progress (Editable) -->
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="edit-userPageProgress" class="form-label">Your Progress:</label>
+                            <input 
+                            name="userPageProgress" 
+                            type="number" 
+                            class="form-control" 
+                            id="edit-userPageProgress" 
+                            required
+                            >
+                        </div>
+                    </div>
+        
+                    <!-- Words/Pages (Read-Only) -->
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="edit-pagesReached" class="form-label" id="edit-pagesReached-label">
+                                Words at Start of Day:
+                            </label>
+                        </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="edit-pageGoal" class="form-label" id="edit-pageGoal-label">
+                                Word Goal:
+                            </label>
+                        </div>
+                    </div>
+        
+                    <!-- Day Letter Hours (optional) -->
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="edit-dayLetterHours" class="form-label" id="edit-dayLetterHours-label">
+                                Hours Expected for Letter:
+                            </label>
+                        </div>
+                    </div>
+                      
+        
+                    <!-- Modal Footer: Buttons -->
+                    <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-danger" id="delete-event">Delete</button> -->
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="edit-event-submit">Save changes</button>
+                    </div>
+        
+                    <!-- Hidden Fields (if you need to store them locally) -->
+                    <input type="hidden" name="groupId" id="edit-groupId">
+                    <input type="hidden" name="eventId" id="edit-eventId">
+                    <input type="hidden" name="title" id="edit-title">
+                    <input type="hidden" name="start" id="edit-start">
+                    <input type="hidden" name="userWordProgress" id="edit-userWordProgress">
+                    <input type="hidden" name="wordsReached" id="edit-wordsReached">
+                    <input type="hidden" name="wordGoal" id="edit-wordGoal">
+                    <input type="hidden" name="pagesReached" id="edit-pagesReached">
+                    <input type="hidden" name="pageGoal" id="edit-pageGoal">
+                    <input type="hidden" name="dayLetterHours" id="edit-dayLetterHours">
+                    <input type="hidden" name="cumLetterHours" id="edit-cumLetterHours">
+                    <input type="hidden" name="backgroundColor" id="edit-backgroundColor">
+                    <input type="hidden" name="borderColor" id="edit-borderColor">
+                    <input type="hidden" name="textColor" id="edit-textColor">
+        
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
     </body>
 </html>
