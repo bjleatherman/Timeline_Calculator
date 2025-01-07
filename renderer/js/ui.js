@@ -276,6 +276,44 @@ function showEditBookModal(book) {
 
     editModal.show()
 }
+
+// Populates the Edit event modal with the event data then shows the modal
+function showEditEventModal(event, book) {
+
+    const eventModal = new bootstrap.Modal(editEventModal)
+    editEventForm.setAttribute('value', event.groupId);
+
+    const modalTitle = `Edit Event for ${book.title}: ${formatDateToMDYY(event.start)}`;
+    document.getElementById('edit-event-modal-title').textContent = modalTitle;
+
+    // Visible Inputs
+    // document.getElementById('edit-userWordProgress').placeholder = event.wordGoal;
+    document.getElementById('edit-userPageProgress').value = event.userPageProgress != 0 ? event.userPageProgress : event.pageGoal;
+    
+    // Visible Labels
+    document.getElementById('edit-pagesReached-label').textContent = `Words at the start of day: ${event.pagesReached}`;
+    document.getElementById('edit-pageGoal-label').textContent = `Word Goal: ${event.pageGoal}`;
+    document.getElementById('edit-dayLetterHours-label').textContent = `Hours expected to spend on the letter today: ${event.dayLetterHours}`;
+    
+    // Hidden Inputs
+    document.getElementById('edit-wordsReached').value = event.wordsReached;
+    document.getElementById('edit-wordGoal').value = event.wordGoal;
+    document.getElementById('edit-dayLetterHours').value = event.dayLetterHours;
+    document.getElementById('edit-groupId').value = event.groupId;
+    document.getElementById('edit-eventId').value = event.eventId;
+    document.getElementById('edit-title').value = event.title;
+    document.getElementById('edit-start').value = event.start;
+    document.getElementById('edit-userWordProgress').value = event.userWordProgress;
+    document.getElementById('edit-pagesReached').value = event.pagesReached;
+    document.getElementById('edit-pageGoal').value = event.pageGoal;
+    document.getElementById('edit-cumLetterHours').value = event.cumLetterHours;
+    document.getElementById('edit-backgroundColor').value = event.backgroundColor;
+    document.getElementById('edit-borderColor').value = event.borderColor;
+    document.getElementById('edit-textColor').value = event.textColor;
+
+    eventModal.show()
+}
+
 //#endregion UI Updates
 
 ////////////////////////////////
@@ -348,13 +386,48 @@ function deleteBookFromModal() {
     if (confirm('Are you sure you want to delete this book?')) {
         // User clicked yes, proceed with delete
         console.log('Delete confirmed');
-        const bookId = editBookForm.getAttribute('value');
+        const groupId = editBookForm.getAttribute('value');
 
         var modal = bootstrap.Modal.getInstance(document.getElementById('edit-book-modal'));
         modal.hide();
 
-        deleteBook(bookId);
+        deleteBook(groupId);
     }
+}
+//#endregion Books UI CRUD
+
+//********//
+// Events //
+//********//
+
+// Update an event from the edit event form modal
+function editEventFromModal(event) {
+
+    console.log(`editEventFromModal`);
+    // throw new Error('Not implemented');
+
+    // prevents refreshing page
+    event.preventDefault();
+    
+    if (!editEventForm.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Please fill out all required fields.");
+    }
+    var formData = new FormData(editEventForm);
+    var formObj = {};
+    formData.forEach((value,key) =>{
+        formObj[key] = value;
+    });
+
+    // Close and reset Modal
+    editEventForm.reset();
+    var modal = bootstrap.Modal.getInstance(document.getElementById('edit-event-modal'));
+    modal.hide();
+
+    // Handle edit event input
+    updatedEvent = new LocalEvent(formObj);
+    updateEvent(updatedEvent);
 }
 //#endregion CRUD Operations
 
