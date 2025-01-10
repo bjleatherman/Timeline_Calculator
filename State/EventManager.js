@@ -135,6 +135,25 @@ class EventManager {
         // Combine the previous and newly generated events
         return [...newEvents];
     }
+
+    generatePreStartEvents(book) {
+
+        throw new Error ('Not Implemented'); 
+        // const { groupId, title, receiveDate, startDate } = book;
+
+        // const 
+
+        // let tempDate = (receiveDate);
+        // const newEvents = [];
+
+        // while (tempDate < startDate) {
+        //     const event = new Event(
+
+        //     );
+
+        //     tempDate += 1
+        // }
+    }
     
 
     wordEventTitleGenerator(bookTitle, wordsReached, wordGoal, dailyLetterHours, totalWords) {

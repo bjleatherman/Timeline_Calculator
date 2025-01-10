@@ -231,7 +231,7 @@ class State {
 
     // Returns the valid dates for a book
     getValidDates(book) {
-        const { receiveDate, dueDate } = book
+        const { startDate, dueDate } = book
         const incrementDate = (dateString) => {
             const [year, month, day] = dateString.split('-').map(Number);
             const date = new Date(year, month - 1, day + 1); // Increment by one day
@@ -239,7 +239,7 @@ class State {
         };
     
         const dates = [];
-        let current = receiveDate;
+        let current = startDate;
     
         while (current <= dueDate) {
             if (!this.blackoutDatesSet.has(current)) {

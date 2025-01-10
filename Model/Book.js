@@ -11,6 +11,7 @@ class Book {
      * @param {number} options.pages - The total number of pages.
      * @param {number} options.words - The total number of words.
      * @param {string} options.receiveDate - [yyyy-mm-dd] The date that the book will be/ was received.
+     * @param {string} options.startDate - [yyyy-mm-dd] The date that the book will be started on.
      * @param {string} options.dueDate - [yyyy-mm-dd] The date that the book is due.
      * @param {boolean} options.needsLetter - If the edit needs a letter written upon completion.
      * @param {number} options.letterDayFloat - The number of hours needed to write the letter.
@@ -28,6 +29,7 @@ class Book {
             pages,
             words,
             receiveDate,
+            startDate,
             dueDate,
             needsLetter,
             letterDayFloat,
@@ -36,7 +38,7 @@ class Book {
             color,
         } = options;
 
-        if (!isValidDate(receiveDate) || !isValidDate(dueDate)) {
+        if (!isValidDate(receiveDate) || !isValidDate(dueDate) || !isValidDate(startDate)) {
             throw new Error("Invalid date format provided.");
         }
 
@@ -47,6 +49,7 @@ class Book {
         this.pages = pages;
         this.words = words;
         this.receiveDate = receiveDate;
+        this.startDate = startDate;
         this.dueDate = dueDate;
         this.needsLetter = needsLetter;
         this.letterDayFloat = letterDayFloat;

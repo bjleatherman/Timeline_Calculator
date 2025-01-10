@@ -24,6 +24,7 @@ class LocalBook {
             pages,
             words,
             receiveDate,
+            startDate,
             dueDate,
             needsLetter,
             letterDayFloat,
@@ -32,7 +33,7 @@ class LocalBook {
             color,
         } = options;
 
-        if (!isValidDate(receiveDate) || !isValidDate(dueDate)) {
+        if (!isValidDate(receiveDate) || !isValidDate(dueDate) || !isValidDate(startDate)) {
             throw new Error("Invalid date format provided.");
         }
         this.groupId = null;
@@ -42,6 +43,7 @@ class LocalBook {
         this.pages = pages * 1;
         this.words = words * 1;
         this.receiveDate = receiveDate;
+        this.startDate = startDate;
         this.dueDate = dueDate;
         this.needsLetter = needsLetter;
         this.letterDayFloat = letterDayFloat * 1;
