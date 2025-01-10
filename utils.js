@@ -81,3 +81,5 @@ function getContrastColor(color) {
 }
 
 exports.isValidDate = isValidDate;
+exports.lightenHexColor = lightenHexColor;
+exports.getContrastColor = getContrastColor;

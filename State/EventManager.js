@@ -222,36 +222,6 @@ class EventManager {
         return `${truncTitle}${shownWordStatus}${ampersand}${letterInTitle}`
     }
 
-    getTextColor(color) {
-        // Convert hex color to RGB
-        let r, g, b;
-    
-        if (color.startsWith('#')) {
-          const hex = color.slice(1);
-          if (hex.length === 3) {
-            // Short hex format (e.g., #123)
-            r = parseInt(hex[0] + hex[0], 16);
-            g = parseInt(hex[1] + hex[1], 16);
-            b = parseInt(hex[2] + hex[2], 16);
-          } else if (hex.length === 6) {
-            // Full hex format (e.g., #112233)
-            r = parseInt(hex.slice(0, 2), 16);
-            g = parseInt(hex.slice(2, 4), 16);
-            b = parseInt(hex.slice(4, 6), 16);
-          } else {
-            throw new Error('Invalid hex color format');
-          }
-        } else {
-          throw new Error('Color must be in hex format (e.g., #123 or #112233)');
-        }
-    
-        // Calculate relative luminance
-        const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-    
-        // Return light or dark text color based on luminance
-        return luminance > 186 ? '#000000' : '#FFFFFF';
-      }
-
       setAvgHoursPerDay(avgHoursPerDay) {
         this.avgHoursPerDay = avgHoursPerDay;
       }
