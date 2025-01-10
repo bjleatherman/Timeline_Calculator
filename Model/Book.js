@@ -42,19 +42,19 @@ class Book {
             throw new Error("Invalid date format provided.");
         }
 
-        this.groupId = groupId;
+        this.groupId = groupId * 1;
         this.title = title;
         this.author = author;
         this.type = type;
-        this.pages = pages;
-        this.words = words;
+        this.pages = pages * 1;
+        this.words = words * 1;
         this.receiveDate = receiveDate;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.needsLetter = needsLetter;
-        this.letterDayFloat = letterDayFloat;
+        this.letterDayFloat = letterDayFloat * 1;
         this.otherTasks = otherTasks;
-        this.otherTaskFloat = otherTaskFloat;
+        this.otherTaskFloat = otherTaskFloat * 1;
         this.color = color;
 
         // Placeholder for multiple users if necessary.

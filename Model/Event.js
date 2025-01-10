@@ -45,21 +45,21 @@ class Event {
             throw new Error("Invalid start date provided.");
         }
 
-        this.groupId = groupId;
-        this.eventId = eventId;
+        this.groupId = groupId * 1;
+        this.eventId = eventId * 1;
         this.title = title;
         this.start = start;
-        this.wordsReached = wordsReached;
-        this.wordGoal = wordGoal;
-        this.pagesReached = pagesReached;
-        this.pageGoal = pageGoal;
-        this.dayLetterHours = dayLetterHours;
-        this.cumLetterHours = cumLetterHours;
+        this.wordsReached = wordsReached * 1;
+        this.wordGoal = wordGoal * 1;
+        this.pagesReached = pagesReached * 1;
+        this.pageGoal = pageGoal * 1;
+        this.dayLetterHours = dayLetterHours * 1;
+        this.cumLetterHours = cumLetterHours * 1;
         this.backgroundColor = backgroundColor;
         this.borderColor = borderColor;
         this.textColor = textColor;
-        this.userWordProgress = userWordProgress;
-        this.userPageProgress = userPageProgress;
+        this.userWordProgress = userWordProgress * 1;
+        this.userPageProgress = userPageProgress * 1;
 
         // Placeholder for multiple users if necessary
         this.userId = 1;
