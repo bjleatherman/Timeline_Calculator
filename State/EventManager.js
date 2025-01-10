@@ -1,4 +1,6 @@
 const Event = require ('../Model/Event.js');
+const { lightenHexColor } = require('../utils.js');
+const { getContrastColor } = require('../utils.js');
 
 class EventManager {
     
@@ -78,7 +80,7 @@ class EventManager {
 
         const backgroundColor = color;
         const borderColor = color;
-        const textColor = this.getTextColor(color);
+        const textColor = getContrastColor(color);
 
         return new Event({
             groupId: groupId,
