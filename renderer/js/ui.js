@@ -253,6 +253,10 @@ function setFormDates() {
     document.getElementById('receiveDate').value = todaysDate;
     document.getElementById('receiveDate').min = minDate;
     document.getElementById('receiveDate').max = maxDate;
+
+    document.getElementById('startDate').value = todaysDate;
+    document.getElementById('startDate').min = minDate;
+    document.getElementById('startDate').max = maxDate;
   
     document.getElementById('dueDate').value = estEndDate;
     document.getElementById('dueDate').min = minDate;
@@ -271,6 +275,7 @@ function showEditBookModal(book) {
     document.getElementById('edit-type').value = book.type;
     document.getElementById('edit-letterDayFloat').value = book.letterDayFloat;
     document.getElementById('edit-receiveDate').value = book.receiveDate;
+    document.getElementById('edit-startDate').value = book.startDate;
     document.getElementById('edit-dueDate').value = book.dueDate;
     document.getElementById('edit-color-picker').value = book.color;
 
