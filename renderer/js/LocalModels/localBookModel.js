@@ -8,6 +8,7 @@ class LocalBook {
      * @param {number} options.pages - The total number of pages.
      * @param {number} options.words - The total number of words.
      * @param {string} options.receiveDate - [yyyy-mm-dd] The date that the book will be/ was received.
+     * @param {string} options.startDate - [yyyy-mm-dd] The date that the book will be started on.
      * @param {string} options.dueDate - [yyyy-mm-dd] The date that the book is due.
      * @param {boolean} options.needsLetter - If the edit needs a letter written upon completion.
      * @param {number} options.letterDayFloat - The number of hours needed to write the letter.
