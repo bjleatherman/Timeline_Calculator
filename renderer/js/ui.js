@@ -56,38 +56,9 @@ function handleEventClick(info) {
 // Handles clicking on a date in the calendar
 function handleDateClick(info) {
 
-    let date = '';
-    // Get the date object based on how the click was called
-    // TODO: make this not a try catch block
-    try{
-        // A blackout date event card was clicked
-        date = formatDateToYYYYMMDD(info.event.start);
-    }
-    catch {
-        // A full date box was clicked
-        date = info.dateStr;
-    }   
-    // console.log(`Date Clicked: ${date}`);
-    
-    if (!isValidDate(date)) {throw new Error('date of blackout event improperly formatted')}
+    let date = getDateFromCalInfo(info);
     let blackoutDate = getBlackoutDate(date);
-    
-    // Check if that date is a blackout date
-    if (blackoutDate) {
-        // If it is a blackout date, ask the user if they want to delete it
-        if (confirm('Are you sure you want to delete this blackout date?')) {
-            // User clicked yes, proceed with delete
-            deleteBlackoutDate(blackoutDate);
-        }
-    } 
-    else {
-        // If it is not a blackout date, ask the user if they want to add it
-        if (confirm('Do you want to set date as a blackout date?')) {
-            // User clicked yes, proceed with delete
-            blackoutDate = new localBlackoutDate(date);
-            createBlackoutDate(blackoutDate);
-        }
-    }
+    handleBlackoutDateChange(blackoutDate, date);
 }
 
 // Handles clicking on a user event in the calendar
@@ -98,6 +69,8 @@ function handleUserEventClick(info) {
     console.log(`Event Clicked:
         EventId: ${eventId}
         GroupId: ${groupId}`);
+
+    if(eventId < 0) { return; } // Don't allow edits on placeholder dates
     
     // Get the event from data storage
     const event = getEventFromIds(eventId, groupId);
@@ -436,6 +409,30 @@ function editEventFromModal(event) {
     updateEvent(updatedEvent);
 }
 //#endregion CRUD Operations
+
+//**************//
+// BlacoutDates //
+//**************//
+
+// Determine if a blackout date should be added or removed
+function handleBlackoutDateChange(blackoutDate, date) {
+    // Check if that date is a blackout date
+    if (blackoutDate) {
+        // If it is a blackout date, ask the user if they want to delete it
+        if (confirm('Are you sure you want to delete this blackout date?')) {
+            // User clicked yes, proceed with delete
+            deleteBlackoutDate(blackoutDate);
+        }
+    } 
+    else {
+        // If it is not a blackout date, ask the user if they want to add it
+        if (confirm('Do you want to set date as a blackout date?')) {
+            // User clicked yes, proceed with delete
+            blackoutDate = new localBlackoutDate(date);
+            createBlackoutDate(blackoutDate);
+        }
+    }
+}
 
 /////////////////////////////
 //   Add Event Listeners   //
