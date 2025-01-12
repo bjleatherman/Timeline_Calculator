@@ -135,8 +135,8 @@ ipcMain.on('delete-book', (e, groupId) => {
 //********//
 
 // Update Event
-ipcMain.on('update-event', (e, event) => {
-    state.updateEvents(event);
+ipcMain.on('update-from-single-event', (e, event) => {
+    state.updateFromSingleEvent(event);
 });
 
 // Delete Event
