@@ -125,8 +125,8 @@ function deleteBook(groupId) {
 //********//
 
 // Update an event
-function updateEvent(event) {
-  ipcRenderer.send('update-event', event);
+function updateFromSingleEvent(event) {
+  ipcRenderer.send('update-from-single-event', event);
 }
 
 // Delete an event
