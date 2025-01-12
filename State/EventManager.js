@@ -1,6 +1,9 @@
 const Event = require ('../Model/Event.js');
 const { lightenHexColor } = require('../utils.js');
 const { getContrastColor } = require('../utils.js');
+const { iterateDateRange } = require('../utils.js');
+const { formatDateToYyyyMmDd } = require('../utils.js');
+const { getTimezoneFreeDate } = require('../utils.js');
 
 class EventManager {
     
@@ -29,7 +32,10 @@ class EventManager {
         validDates.forEach(date => {
             newEvents.push(this.generateNextEvent(book, date, newEvents, validDates));
         });
-        return newEvents;
+        const preEvents = this.generatePreStartEvents(book);
+
+        const allEvents = [...newEvents, ...preEvents];
+        return allEvents;
     }
 
     generateNextEvent(book, date, newEvents, validDates, updatedEvent=[]) {
@@ -138,21 +144,42 @@ class EventManager {
 
     generatePreStartEvents(book) {
 
-        throw new Error ('Not Implemented'); 
-        // const { groupId, title, receiveDate, startDate } = book;
+        const { groupId, title, receiveDate, startDate, color } = book;
+        const convertedStartDate = getTimezoneFreeDate(startDate);
+        const events = [];
+        let eventId = -1;
 
-        // const 
+        iterateDateRange(receiveDate, startDate, (date) =>{
 
-        // let tempDate = (receiveDate);
-        // const newEvents = [];
+            // Don't make an event on the books startDate
+            if (
+                date.toISOString().split('T')[0] ===
+                convertedStartDate.toISOString().split('T')[0]
+              ) {
+                return;
+              }
 
-        // while (tempDate < startDate) {
-        //     const event = new Event(
+            const event = new Event({
+                groupId: groupId,
+                eventId: eventId, // TODO: this
+                title: `${title}`,
+                start: formatDateToYyyyMmDd(date), // Date on calendar
+                wordsReached: 0,
+                wordGoal: 0,
+                pagesReached: 0, 
+                pageGoal: 0,
+                dayLetterHours: 0,
+                cumLetterHours: 0,
+                backgroundColor: lightenHexColor(color, 50),
+                borderColor: color,
+                textColor: getContrastColor(color)
+            });
+            
+            eventId --;
+            events.push(event)
+        });
 
-        //     );
-
-        //     tempDate += 1
-        // }
+        return events;
     }
     
 
