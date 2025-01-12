@@ -406,7 +406,7 @@ function editEventFromModal(event) {
 
     // Handle edit event input
     updatedEvent = new LocalEvent(formObj);
-    updateEvent(updatedEvent);
+    updateFromSingleEvent(updatedEvent);
 }
 //#endregion CRUD Operations
 
