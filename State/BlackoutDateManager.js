@@ -17,7 +17,7 @@ class BlackoutDateManager {
     manageBlackoutDateEventsUpdate(blackoutDate, state) {
 
         const affectedBooks = state.books.filter(book =>
-            book.receiveDate <= blackoutDate.date &&
+            book.startDate <= blackoutDate.date &&
             book.dueDate >= blackoutDate.date
         );
 
