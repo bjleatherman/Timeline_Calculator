@@ -124,6 +124,23 @@ function getEstEndDate() {
   
     return `${year}-${month}-${day}`;
 }
+
+function getDateFromCalInfo(info){
+    // Get the date object based on how the click was called
+    // TODO: make this not a try catch block
+    let date;
+
+    try{
+        // A blackout date event card was clicked
+        date = formatDateToYYYYMMDD(info.event.start);
+    }
+    catch {
+        // A full date box was clicked
+        date = info.dateStr;
+    }
+
+    return date
+}
 //#endregion Date Calculations
 
 ///////////////////////////////
