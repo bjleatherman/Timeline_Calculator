@@ -46,7 +46,7 @@ class BlackoutDateManager {
                 throw new Error(`No event was found with Event Id ${firstEventData.eventId} and GroupId ${firstEventData.groupId}`);
             }
             
-            const recalculatedEvents = state.updateEvents(firstEventData, false, true);
+            const recalculatedEvents = state.updateFromSingleEvent(firstEventData, false, true);
             newEvents.push(...recalculatedEvents);
         });
 
