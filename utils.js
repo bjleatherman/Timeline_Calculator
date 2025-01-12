@@ -80,6 +80,48 @@ function getContrastColor(color) {
     return luminance > 186 ? '#000000' : '#FFFFFF';
 }
 
+
+/**
+ * Iterates over an inclusive UTC date range calling callback at each date.
+ * @param {string} startDate - [YYYY_MM_DD] String date representing the first date of an iteration.
+ * @param {string} endDate - [YYYY_MM_DD] String date representing the last date of an iteration.
+ * @param {callback} callback - The function that will receive the date object as an argument.
+ */
+function iterateDateRange(startDate, endDate, callback) {
+    
+    const currentDate = getTimezoneFreeDate(startDate);
+    const finalDate = getTimezoneFreeDate(endDate);
+
+    while(currentDate <= finalDate) {
+        callback(currentDate);
+        currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+    }
+}
+
+/**
+ * Converts a Date object to a string in the format of [YYYY-MM-DD]
+ * @param {Date} date - Date object to be converted
+ */
+function formatDateToYyyyMmDd(date) {
+    const year = String(date.getUTCFullYear());
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2,'0');
+    return `${year}-${month}-${day}`
+}
+
+/**
+ * Takes a string date and returns a date object that is set to UTC time
+ * @param {string} date - string to be converted.
+ */
+function getTimezoneFreeDate(date) {
+    const [year, month, day] = date.split('-').map(Number);
+    return new Date(Date.UTC(year, month - 1, day));
+}
+
+
 exports.isValidDate = isValidDate;
 exports.lightenHexColor = lightenHexColor;
 exports.getContrastColor = getContrastColor;
+exports.iterateDateRange = iterateDateRange;
+exports.formatDateToYyyyMmDd = formatDateToYyyyMmDd;
+exports.getTimezoneFreeDate = getTimezoneFreeDate;
