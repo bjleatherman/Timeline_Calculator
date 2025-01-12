@@ -147,7 +147,7 @@ class State {
 
     // Update events from a specific event point
     // TODO: Rename to updateEvent
-    updateEvents(updatedEvent, saveState=true, returnEvents=false) {
+    updateFromSingleEvent(updatedEvent, saveState=true, returnEvents=false) {
         //console.log(updatedEvent);
         //console.log(updatedEvent.groupId);
         const book = this.books.find(book => book.groupId === updatedEvent.groupId);
@@ -161,15 +161,19 @@ class State {
     
         // TODO: Break this into its own method caled updateEvents
         const updatedEvents = this.eventManager.updateEvents(book, validDates, events, updatedEvent);
-        this.events = this.events.filter(event => event.groupId !== updatedEvent.groupId).concat(updatedEvents);
     
         if (saveState){
-            this.saveState();
+            this.updateEvents(updatedEvents);
         }
 
         if (returnEvents) {
-            return this.events;
+            return updatedEvents;
         }
+    }
+
+    updateEvents(events) {
+        this.events = this.events.filter(event => event.groupId !== events.groupId).concat(events);
+        this.saveState();
     }
 
     // Delete an event
