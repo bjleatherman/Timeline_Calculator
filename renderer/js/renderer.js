@@ -50,6 +50,7 @@ var calendarEl = document.getElementById('calendar');
     selectable: true,
     dayMaxEvents: true, // allow "more" link when too many events
     contentHeight: 'auto',
+    eventOrder: 'groupId',
     // events: calEvents.events,
     dateClick: function(info) {
       handleDateClick(info);
