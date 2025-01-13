@@ -261,6 +261,14 @@ class State {
         return this.eventManager.generateEventsForNewBook(book, validDates)
     }
 
+    // Generates events when updating a book
+    generateEventsForAnUpdatedBook(updatedBook){
+        const validDates = this.getValidDates(updatedBook);
+        const oldEvents = this.events.filter(event => event.groupId === updatedBook.groupId);
+        const oldBook = this.books.filter(book => book.groupId === updatedBook.groupId);
+        return this.eventManager.generateEventsForAnUpdatedBook(updatedBook, oldBook, oldEvents, validDates);
+    }
+
     // Returns the valid dates for a book
     getValidDates(book) {
         const { startDate, dueDate } = book
