@@ -103,19 +103,21 @@ class State {
         const events = this.generateEventsForNewBook(newBook);
         this.nextGroupId += 1;
         this.books.push(newBook);
-        this.events.push(...events);
+        this.updateEvents(events);
         this.saveState();
     }
 
     // Update a book
     updateBook(updatedBook) {
-        
-        throw new Error('Not implemented');
 
-        const book = this.books.find(book => book.groupId === updatedBook.groupId);
-        if (!book) {
-            console.error(`No book found for groupId ${updatedBook.groupId}`);
-        }
+        const updatedEvents = this.generateEventsForAnUpdatedBook(updatedBook);
+        this.updateEvents(updatedEvents);
+
+        const otherBooks = this.books.filter(book => book.groupId != updatedBook.groupId);
+        otherBooks.push(updatedBook);
+        this.books = otherBooks;
+
+        this.saveState();
     }
 
     // Delete a book
