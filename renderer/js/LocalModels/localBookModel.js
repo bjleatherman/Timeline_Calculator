@@ -56,5 +56,9 @@ class LocalBook {
         this.userId = 1;
         this.userGroup = 1;
     }
+
+    setGroupId(groupId){
+        this.groupId = groupId;
+    }
 }
 
