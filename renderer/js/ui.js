@@ -238,9 +238,10 @@ function setFormDates() {
   
 // Populates the Edit book modal with the book data then shows the modal
 // Called from .edit-btn event listener - recieves book object from bookId bound to .edit-btn
-function showEditBookModal(book) {
+function showEditBookModal(book, groupId) {
     const editModal = new bootstrap.Modal(document.getElementById('edit-book-modal'))
     editBookForm.setAttribute('value', book.groupId);
+    document.getElementById('update-bookGroupId').value = groupId; // TODO: fix this
     document.getElementById('edit-title').value = book.title;
     document.getElementById('edit-author').value = book.author;
     document.getElementById('edit-words').value = book.words;
