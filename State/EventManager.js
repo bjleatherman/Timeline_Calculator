@@ -110,18 +110,19 @@ class EventManager {
     }
 
     updateEvents(book, validDates, events, updatedEvent) {
-        const { groupId, title, pages, words, letterDayFloat } = book;
+
+        const sortedEvents = [...events].sort((a, b) => a.eventId - b.eventId);
     
         // Find the index of updatedEvent in the ordered events
-        const updatedEventIndex = events.findIndex(event => event.eventId === updatedEvent.eventId);
+        const updatedEventIndex = sortedEvents.findIndex(event => event.eventId === updatedEvent.eventId);
         if (updatedEventIndex === -1) {
             console.error(`Updated event with ID ${updatedEvent.eventId} not found in the events list.`);
             return events; // Return the original list if the event isn't found
         }
     
         // Separate events before and after the updatedEvent
-        const previousEvents = events.slice(0, updatedEventIndex);
-        const remainingDates = validDates.slice(updatedEventIndex);
+        const previousEvents = sortedEvents.slice(0, updatedEventIndex);
+        const remainingDates = validDates.slice(validDates.findIndex(date => date === updatedEvent.start));
     
         // Regenerate events starting from the updatedEvent
         const newEvents = [...previousEvents];
