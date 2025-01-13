@@ -28,13 +28,13 @@ class EventManager {
     }
 
     generateEventsForNewBook(book, validDates) {
-        let newEvents = [];
+        const newEvents = [];
         validDates.forEach(date => {
             newEvents.push(this.generateNextEvent(book, date, newEvents, validDates));
         });
         const preEvents = this.generatePreStartEvents(book);
 
-        const allEvents = [...newEvents, ...preEvents];
+        const allEvents = [...preEvents, ...newEvents];
         return allEvents;
     }
 
