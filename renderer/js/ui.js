@@ -472,7 +472,7 @@ function addEditBtnListener(btn) {
         // Get book to edit
         const bookId = btn.value;
         const book = getBookFromId(bookId)
-        showEditBookModal(book)
+        showEditBookModal(book, btn.value)
     });
 }
 //#endregion Event Listeners
