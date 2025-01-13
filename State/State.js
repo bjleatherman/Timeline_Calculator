@@ -146,10 +146,7 @@ class State {
     //#region Events
 
     // Update events from a specific event point
-    // TODO: Rename to updateEvent
     updateFromSingleEvent(updatedEvent, saveState=true, returnEvents=false) {
-        //console.log(updatedEvent);
-        //console.log(updatedEvent.groupId);
         const book = this.books.find(book => book.groupId === updatedEvent.groupId);
         if (!book) {
             console.error(`No book found for groupId ${updatedEvent.groupId} when updating events.`);
@@ -158,8 +155,6 @@ class State {
     
         const validDates = this.getValidDates(book);
         const events = this.events.filter(event => event.groupId === updatedEvent.groupId);
-    
-        // TODO: Break this into its own method caled updateEvents
         const updatedEvents = this.eventManager.updateEvents(book, validDates, events, updatedEvent);
     
         if (saveState){
@@ -172,7 +167,21 @@ class State {
     }
 
     updateEvents(events) {
-        this.events = this.events.filter(event => event.groupId !== events.groupId).concat(events);
+
+        // Create a map of existing events for quick lookup by groupId-eventId
+        const existingEventsMap = new Map(
+            this.events.map(event => [`${event.groupId}-${event.eventId}`, event])
+        );
+
+        // Overwrite or add events from the incoming array
+        events.forEach(event => {
+            const key = `${event.groupId}-${event.eventId}`;
+            existingEventsMap.set(key, event); // Adds new or overwrites existing
+        });
+
+        // Replace this.events with the values of the updated map
+        this.events = Array.from(existingEventsMap.values());
+
         this.saveState();
     }
 
