@@ -38,6 +38,28 @@ class EventManager {
         return allEvents;
     }
 
+    generateEventsForAnUpdatedBook(updatedBook, oldBook, oldEvents, validDates) {
+
+        const newEvents = this.generateEventsForNewBook(updatedBook, validDates);
+        const progressFromEvents = newEvents.map((newEvent) => {
+            const matchingOldEvent = oldEvents.find(
+                (oldEvent) => oldEvent.start === newEvent.start
+            );
+            if (matchingOldEvent){
+                newEvent.userWordProgress = matchingOldEvent.userWordProgress;
+                newEvent.userPageProgress = matchingOldEvent.userPageProgress;
+            }
+            return newEvent
+        });
+        
+        const newStartEvent = progressFromEvents.find(event => event.eventId === 1);
+
+        const updatedEvents = this.updateEvents(updatedBook,validDates,progressFromEvents, newStartEvent);
+        
+        // Check to see if progress is erased
+        return updatedEvents;
+    }
+
     generateNextEvent(book, date, newEvents, validDates, updatedEvent=[]) {
         const { groupId, title, words, pages, letterDayFloat, color } = book;
         const isLastAvailableDay = (date === validDates[validDates.length - 1]);
