@@ -344,6 +344,9 @@ function editBookFromModal(event) {
         event.stopPropagation();
         alert("Please fill out all required fields.");
     }
+
+    const bookGroupId = document.getElementById('update-bookGroupId').value
+
     var formData = new FormData(editBookForm);
     var formObj = {};
     formData.forEach((value,key) =>{
@@ -357,6 +360,7 @@ function editBookFromModal(event) {
 
     // Handle edit book input
     book = new LocalBook(formObj);
+    book.setGroupId(bookGroupId);
     updateBook(book);
 }
 
