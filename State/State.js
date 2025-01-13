@@ -170,6 +170,8 @@ class State {
 
     updateEvents(events) {
 
+        // TODO: When updating books/ changing the number of events for a given groupId, get rid of the leftover old events from the oldEvents
+
         // Create a map of existing events for quick lookup by groupId-eventId
         const existingEventsMap = new Map(
             this.events.map(event => [`${event.groupId}-${event.eventId}`, event])
@@ -183,6 +185,19 @@ class State {
 
         // Replace this.events with the values of the updated map
         this.events = Array.from(existingEventsMap.values());
+
+        // // 1. Collect all groupIds present in incoming events
+        // const incomingGroupIds = new Set(events.map(ev => ev.groupId));
+
+        // // 2. Filter out any existing event whose groupId matches one of the incomingGroupIds
+        // this.events = this.events.filter(oldEvent => {
+        //     // Keep the event if its groupId is *not* in the new set
+        //     return !incomingGroupIds.has(oldEvent.groupId);
+        // });
+
+        // // 3. Now add (or overwrite) all incoming events
+        // this.events.push(...events);
+
 
         this.saveState();
     }
@@ -212,6 +227,8 @@ class State {
                 blackoutDate,
                 this
             );
+
+            // TODO: investigate why events are being deleted from the view when multiple books are on screen and blackout dates change
             
             this.saveState();
         }
